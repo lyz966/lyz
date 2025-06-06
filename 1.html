@@ -66,35 +66,6 @@
             transform: translate(-50%, -50%) scale(1.2);
         }
 
-        .music-control {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 10;
-            background: rgba(10, 25, 47, 0.7);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 204, 102, 0.5);
-            box-shadow: 0 0 15px rgba(255, 204, 102, 0.3);
-        }
-
-        .music-control:hover {
-            transform: scale(1.1);
-            background: rgba(26, 58, 95, 0.8);
-            box-shadow: 0 0 20px rgba(255, 204, 102, 0.5);
-        }
-
-        .music-control i {
-            color: #ffcc66;
-            font-size: 22px;
-        }
-
         .footer {
             position: absolute;
             bottom: 20px;
@@ -289,10 +260,44 @@
                 padding: 8px 16px;
             }
         }
+
+        /* 新增烟花开关样式 */
+        .fireworks-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(255, 153, 51, 0.8);
+            color: #0a192f;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 16px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 0 10px rgba(255, 204, 102, 0.5);
+        }
+
+        .fireworks-toggle:hover {
+            background: rgba(255, 153, 51, 1);
+            transform: scale(1.05);
+        }
+
+        .fireworks-toggle:active {
+            transform: scale(0.95);
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- 新增烟花开关按钮 -->
+    <button class="fireworks-toggle" id="fireworksToggle">
+        <i class="fa fa-toggle-on"></i> 烟花开启
+    </button>
+
     <div class="stars" id="stars"></div>
     <div class="mountains"></div>
     <div class="family-silhouette" id="familySilhouette">
@@ -307,15 +312,6 @@
             <path d="M140,120 Q160,100 180,120" stroke="#ffcc66" stroke-width="2" fill="none" />
         </svg>
     </div>
-
-    <div class="music-control" id="musicToggle">
-        <i class="fa fa-play" id="playIcon"></i>
-        <i class="fa fa-pause hidden" id="pauseIcon"></i>
-    </div>
-
-    <audio id="backgroundMusic" loop>
-        <source src="https://music.163.com/song/media/outer/url?id=18627133.mp3" type="audio/mpeg">
-    </audio>
 
     <canvas id="fireworks"></canvas>
 
@@ -419,16 +415,19 @@
         // 获取DOM元素
         const canvas = document.getElementById('fireworks');
         const ctx = canvas.getContext('2d');
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        const playIcon = document.getElementById('playIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
         const greetingMessage = document.getElementById('greetingMessage');
         const familySilhouette = document.getElementById('familySilhouette');
         const interactiveArea = document.getElementById('interactiveArea');
+        const fireworksToggle = document.getElementById('fireworksToggle'); // 开关元素
 
         // 存储所有消息元素
         const messages = [];
+
+        // 新增开关相关变量
+        let fireworksActive = true; // 初始开启状态
+        const MAX_FIREWORKS = 8; // 最大同时存在烟花数量
+        const CLICK_COOLDOWN = 800; // 点击冷却时间（毫秒）
+        let lastClickTime = 0;
 
         // 设置Canvas尺寸
         function resizeCanvas() {
@@ -641,14 +640,18 @@
         // 创建烟花数组
         const fireworks = [];
 
-        // 新增点击冷却时间和最大烟花数量限制
-        const MAX_FIREWORKS = 8; // 最大同时存在烟花数量
-        const CLICK_COOLDOWN = 800; // 点击冷却时间（毫秒）
-        let lastClickTime = 0;
+        // 切换烟花状态的函数
+        function toggleFireworks() {
+            fireworksActive = !fireworksActive;
+            fireworksToggle.innerHTML = fireworksActive ? 
+                '<i class="fa fa-toggle-on"></i> 烟花开启' : 
+                '<i class="fa fa-toggle-off"></i> 烟花关闭';
+        }
 
         // 动画循环
         function animate() {
             requestAnimationFrame(animate);
+            if (!fireworksActive) return; // 关闭时不更新画布
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             for (const firework of fireworks) {
@@ -658,30 +661,7 @@
         }
         animate();
 
-        // 音乐控制
-        musicToggle.addEventListener('click', () => {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play().catch(e => {
-                    console.error("播放失败:", e);
-                    alert("背景音乐播放失败，您可以手动点击播放按钮尝试。");
-                });
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            } else {
-                backgroundMusic.pause();
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-            }
-        });
-
-        // 自动播放音乐
-        function tryPlayMusic() {
-            backgroundMusic.play().catch(e => {
-                console.log("自动播放被浏览器阻止:", e);
-            });
-        }
-
-        // 页面加载完成后显示问候消息，然后自动开始烟花
+        // 页面加载完成后逻辑
         window.addEventListener('load', () => {
             // 显示问候消息
             setTimeout(() => {
@@ -689,35 +669,40 @@
                 familySilhouette.classList.add('active');
             }, 500);
 
-            // 3秒后开始烟花
+            // 3秒后开始烟花（仅在开启状态下）
             setTimeout(() => {
-                // 创建初始烟花
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
+                function createFireworkIfActive() {
+                    if (fireworksActive && fireworks.length < MAX_FIREWORKS) {
                         fireworks.push(new Firework());
-                    }, i * 1000);
+                    }
                 }
 
-                // 随机添加新烟花
-                setInterval(() => {
-                    if (Math.random() < 0.03 && fireworks.length < 8) {
+                // 初始烟花
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(createFireworkIfActive, i * 1000);
+                }
+
+                // 随机添加新烟花（仅在开启状态下）
+                const intervalId = setInterval(() => {
+                    if (fireworksActive && Math.random() < 0.03 && fireworks.length < MAX_FIREWORKS) {
                         fireworks.push(new Firework());
                     }
                 }, 1000);
 
-                // 尝试播放音乐
-                tryPlayMusic();
+                // 清理定时器（防止内存泄漏）
+                fireworksToggle.addEventListener('click', () => {
+                    clearInterval(intervalId);
+                });
             }, 3000);
         });
 
-        // 优化后的点击事件处理
+        // 点击事件处理
         interactiveArea.addEventListener('click', (e) => {
             const currentTime = Date.now();
-            // 检查冷却时间
             if (currentTime - lastClickTime < CLICK_COOLDOWN) return;
+            if (!fireworksActive) return; // 关闭时禁止点击创建
             lastClickTime = currentTime;
 
-            // 检查最大烟花数量
             if (fireworks.length >= MAX_FIREWORKS) return;
 
             const firework = new Firework();
@@ -737,6 +722,9 @@
                 createFloatingElement(e.clientX, e.clientY, type);
             }
         });
+
+        // 绑定开关点击事件
+        fireworksToggle.addEventListener('click', toggleFireworks);
     </script>
 </body>
 </html>
