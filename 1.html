@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>父亲节快乐 · 爸爸我爱您</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -189,6 +190,12 @@
             opacity: 0.8;
             filter: drop-shadow(0 0 15px rgba(255, 204, 102, 0.6));
             transition: opacity 1s ease;
+            animation: floatUpDown 4s ease-in-out infinite;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
         }
 
         .family-silhouette.active {
@@ -241,26 +248,6 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .greeting-message {
-                width: 90%;
-                padding: 20px;
-            }
-
-            .greeting-message h2 {
-                font-size: 28px;
-            }
-
-            .greeting-message p {
-                font-size: 18px;
-            }
-
-            .message {
-                font-size: 1.8rem;
-                padding: 8px 16px;
-            }
-        }
-
         /* 新增烟花开关样式 */
         .fireworks-toggle {
             position: fixed;
@@ -289,17 +276,241 @@
         .fireworks-toggle:active {
             transform: scale(0.95);
         }
+
+        /* 新增父子回忆墙 */
+        .memory-wall {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 180px;
+            z-index: 3;
+            background: rgba(10, 25, 47, 0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid rgba(255, 204, 102, 0.3);
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.2);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .memory-wall.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .memory-wall h3 {
+            color: #ffcc66;
+            font-size: 18px;
+            margin-bottom: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 204, 102, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .memory-item {
+            color: rgba(255, 221, 153, 0.9);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .memory-item::before {
+            content: "❤️";
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        /* 新增信封动画 */
+        .letter-container {
+            position: absolute;
+            bottom: 100px;
+            right: 50px;
+            width: 200px;
+            height: 150px;
+            z-index: 4;
+            perspective: 1000px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .letter-container.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffcc66 0%, #ff9900 100%);
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            transform-origin: center;
+            z-index: 2;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 0;
+            left: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 75px solid #ff9900;
+            z-index: 3;
+        }
+
+        .envelope .letter {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: #fff;
+            border-radius: 4px;
+            padding: 15px;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transform: translateY(100%);
+            transition: transform 0.6s ease;
+        }
+
+        .envelope .letter p {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.5;
+            font-family: '楷体', serif;
+        }
+
+        .envelope:hover {
+            transform: rotateY(180deg);
+        }
+
+        .envelope:hover .letter {
+            transform: translateY(0);
+        }
+
+        /* 新增父子互动动画 */
+        .father-child-animation {
+            position: absolute;
+            bottom: 30%;
+            left: 20%;
+            width: 200px;
+            height: 150px;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .father-child-animation.active {
+            opacity: 1;
+        }
+
+        .father-child-animation .dad, .father-child-animation .child {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+            bottom: 0;
+        }
+
+        .father-child-animation .dad {
+            left: 50px;
+            animation: dadMove 5s infinite ease-in-out;
+        }
+
+        .father-child-animation .child {
+            left: 100px;
+            animation: childMove 5s infinite ease-in-out;
+        }
+
+        @keyframes dadMove {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes childMove {
+            0%, 100% { transform: translateY(0) scale(0.8); }
+            50% { transform: translateY(-40px) scale(0.9); }
+        }
+
+        @media (max-width: 768px) {
+            .greeting-message {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .greeting-message h2 {
+                font-size: 28px;
+            }
+
+            .greeting-message p {
+                font-size: 18px;
+            }
+
+            .message {
+                font-size: 1.8rem;
+                padding: 8px 16px;
+            }
+            
+            .memory-wall {
+                width: 150px;
+                left: 10px;
+                top: 10px;
+            }
+            
+            .letter-container {
+                bottom: 80px;
+                right: 20px;
+                width: 150px;
+                height: 120px;
+            }
+        }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- 新增烟花开关按钮 -->
     <button class="fireworks-toggle" id="fireworksToggle">
         <i class="fa fa-toggle-on"></i> 烟花开启
     </button>
 
     <div class="stars" id="stars"></div>
     <div class="mountains"></div>
+    
+    <!-- 新增父子互动动画 -->
+    <div class="father-child-animation" id="fatherChildAnimation">
+        <div class="dad">
+            <svg width="80" height="120" viewBox="0 0 80 120">
+                <circle cx="40" cy="30" r="15" fill="#ffcc66" />
+                <rect x="25" y="45" width="30" height="50" fill="#ffcc66" />
+                <rect x="15" y="45" width="10" height="40" fill="#ffcc66" />
+                <rect x="55" y="45" width="10" height="40" fill="#ffcc66" />
+                <rect x="20" y="95" width="15" height="25" fill="#ffcc66" />
+                <rect x="45" y="95" width="15" height="25" fill="#ffcc66" />
+            </svg>
+        </div>
+        <div class="child">
+            <svg width="60" height="90" viewBox="0 0 60 90">
+                <circle cx="30" cy="25" r="12" fill="#ffcc66" />
+                <rect x="20" y="37" width="20" height="40" fill="#ffcc66" />
+                <rect x="10" y="37" width="8" height="30" fill="#ffcc66" />
+                <rect x="42" y="37" width="8" height="30" fill="#ffcc66" />
+                <rect x="15" y="77" width="10" height="13" fill="#ffcc66" />
+                <rect x="35" y="77" width="10" height="13" fill="#ffcc66" />
+            </svg>
+        </div>
+    </div>
+
     <div class="family-silhouette" id="familySilhouette">
         <svg width="250" height="150" viewBox="0 0 250 150">
             <path d="M50,120 L60,80 L70,120" stroke="#ffcc66" stroke-width="3" fill="none" />
@@ -313,6 +524,25 @@
         </svg>
     </div>
 
+    <!-- 新增回忆墙 -->
+    <div class="memory-wall" id="memoryWall">
+        <h3>我们的珍贵回忆</h3>
+        <div class="memory-item">给我买玩具车</div>
+        <div class="memory-item">给我讲人生道理</div>
+        <div class="memory-item">为我修理坏掉的玩具</div>
+        <div class="memory-item">雨中为我撑伞自己淋湿</div>
+        <div class="memory-item">教我做人要正直善良</div>
+    </div>
+
+    <!-- 新增信封动画 -->
+    <div class="letter-container" id="letterContainer">
+        <div class="envelope">
+            <div class="letter">
+                <p>亲爱的爸爸：<br>感谢您为我付出的一切<br>您是我生命中最重要的人<br>父亲节快乐！</p>
+            </div>
+        </div>
+    </div>
+
     <canvas id="fireworks"></canvas>
 
     <!-- 问候消息 -->
@@ -323,6 +553,10 @@
             您是我生命中最温暖的光，<br>
             感谢您一直以来的守护与付出。<br>
             愿时光温柔待您，健康快乐每一天！
+        </p>
+        <p style="margin-top: 20px; font-size: 18px;">
+            您的肩膀是我看世界的瞭望台<br>
+            是您把我举过头顶看世界
         </p>
     </div>
 
@@ -370,7 +604,10 @@
                 'smile': '😊',
                 'sun': '☀️',
                 'father': '👨',
-                'child': '👶'
+                'child': '👶',
+                'hug': '🫂',
+                'love': '💕',
+                'thanks': '🙏'
             };
 
             element.innerHTML = elements[type] || elements['heart'];
@@ -418,7 +655,10 @@
         const greetingMessage = document.getElementById('greetingMessage');
         const familySilhouette = document.getElementById('familySilhouette');
         const interactiveArea = document.getElementById('interactiveArea');
-        const fireworksToggle = document.getElementById('fireworksToggle'); // 开关元素
+        const fireworksToggle = document.getElementById('fireworksToggle');
+        const memoryWall = document.getElementById('memoryWall');
+        const letterContainer = document.getElementById('letterContainer');
+        const fatherChildAnimation = document.getElementById('fatherChildAnimation');
 
         // 存储所有消息元素
         const messages = [];
@@ -439,7 +679,7 @@
 
         // 烟花粒子类
         class Particle {
-            constructor(x, y, color, velocity, isSpark = false) {
+            constructor(x, y, color, velocity, isSpark = false, isHeart = false) {
                 this.x = x;
                 this.y = y;
                 this.color = color;
@@ -454,6 +694,8 @@
                 this.life = isSpark ? 60 : 100;
                 this.initialLife = this.life;
                 this.isSpark = isSpark;
+                this.isHeart = isHeart;
+                this.angle = 0;
             }
 
             update() {
@@ -464,13 +706,38 @@
                 this.y += this.velocity.y;
                 this.life--;
                 this.alpha = this.life / this.initialLife;
+                this.angle += 0.05;
             }
 
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                
+                if (this.isHeart) {
+                    // 绘制心形
+                    const size = this.radius * 2;
+                    const t = this.angle;
+                    const x = this.x;
+                    const y = this.y;
+                    
+                    ctx.moveTo(x, y + size/4);
+                    for (let i = 0; i < 30; i++) {
+                        const t = i / 30 * Math.PI * 2;
+                        const px = x + size/16 * (16 * Math.pow(Math.sin(t), 3));
+                        const py = y - size/16 * (13 * Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t));
+                        if (i === 0) {
+                            ctx.moveTo(px, py);
+                        } else {
+                            ctx.lineTo(px, py);
+                        }
+                    }
+                    ctx.closePath();
+                } else {
+                    // 绘制圆形
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                }
+                
                 ctx.fillStyle = this.color;
                 ctx.fill();
                 ctx.restore();
@@ -513,9 +780,14 @@
                     "您是我最坚强的后盾",
                     "爸爸，谢谢您的包容",
                     "您教会了我勇敢和坚强",
-                    "我会永远做您的骄傲"
+                    "我会永远做您的骄傲",
+                    "您的爱如高山般厚重",
+                    "您是我心中永远的英雄",
+                    "感谢您的默默付出",
+                    "我会永远爱您，爸爸"
                 ];
                 this.currentMessage = this.messages[Math.floor(Math.random() * this.messages.length)];
+                this.isHeartFirework = Math.random() > 0.7; // 30%的几率是心形烟花
             }
 
             update() {
@@ -549,16 +821,29 @@
 
                 // 创建烟花粒子
                 for (let i = 0; i < 150; i++) {
-                    this.particles.push(new Particle(this.x, this.y, this.color, this.velocity));
+                    this.particles.push(new Particle(
+                        this.x, 
+                        this.y, 
+                        this.color, 
+                        this.velocity,
+                        false,
+                        this.isHeartFirework
+                    ));
                 }
 
                 // 创建烟花火花
                 for (let i = 0; i < 100; i++) {
-                    this.particles.push(new Particle(this.x, this.y, this.color, this.velocity, true));
+                    this.particles.push(new Particle(
+                        this.x, 
+                        this.y, 
+                        this.color, 
+                        this.velocity, 
+                        true
+                    ));
                 }
 
                 // 随机创建一些漂浮元素
-                const elementTypes = ['heart', 'star', 'smile', 'father', 'child'];
+                const elementTypes = ['heart', 'star', 'smile', 'father', 'child', 'hug', 'love', 'thanks'];
                 for (let i = 0; i < 10; i++) {
                     setTimeout(() => {
                         const type = elementTypes[Math.floor(Math.random() * elementTypes.length)];
@@ -667,6 +952,9 @@
             setTimeout(() => {
                 greetingMessage.classList.add('active');
                 familySilhouette.classList.add('active');
+                memoryWall.classList.add('active');
+                letterContainer.classList.add('active');
+                fatherChildAnimation.classList.add('active');
             }, 500);
 
             // 3秒后开始烟花（仅在开启状态下）
@@ -712,12 +1000,13 @@
             fireworks.push(firework);
 
             createHeartPulse(e.clientX, e.clientY);
+            createFloatingElement(e.clientX, e.clientY, 'love');
         });
 
         // 鼠标移动时创建漂浮元素
         interactiveArea.addEventListener('mousemove', (e) => {
             if (Math.random() < 0.1) {
-                const types = ['heart', 'star', 'smile'];
+                const types = ['heart', 'star', 'smile', 'thanks'];
                 const type = types[Math.floor(Math.random() * types.length)];
                 createFloatingElement(e.clientX, e.clientY, type);
             }
