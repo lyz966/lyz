@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父亲节快乐 · 爸爸我爱您</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a192f 0%, #1a3a5f 50%, #0a192f 100%);
+            background-image:
+                radial-gradient(circle at 15% 25%, rgba(255, 204, 102, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 70%, rgba(255, 153, 51, 0.15) 0%, transparent 25%);
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            color: #fff;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .message {
+            position: absolute;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            font-size: 2.2rem;
+            text-align: center;
+            opacity: 0;
+            text-shadow:
+                0 0 15px rgba(255, 221, 153, 0.8),
+                0 0 30px rgba(255, 153, 51, 0.6),
+                0 0 45px rgba(255, 102, 0, 0.4);
+            pointer-events: none;
+            z-index: 3;
+            transform: translate(-50%, -50%) scale(0.5);
+            transition: all 0.5s ease-out;
+            white-space: nowrap;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: rgba(10, 25, 47, 0.4);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 204, 102, 0.3);
+        }
+
+        .message.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .message.fade {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .music-control {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(10, 25, 47, 0.7);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 204, 102, 0.5);
+            box-shadow: 0 0 15px rgba(255, 204, 102, 0.3);
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            background: rgba(26, 58, 95, 0.8);
+            box-shadow: 0 0 20px rgba(255, 204, 102, 0.5);
+        }
+
+        .music-control i {
+            color: #ffcc66;
+            font-size: 22px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255, 221, 153, 0.8);
+            font-size: 18px;
+            z-index: 2;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 0 0 10px rgba(255, 204, 102, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            z-index: 0;
+            background-image:
+                linear-gradient(to top, #0a192f 0%, transparent 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%231a3a5f" fill-opacity="1" d="M0,160L48,149.3C96,139,192,117,288,128C384,139,480,181,576,176C672,171,768,117,864,112C960,107,1056,149,1152,160C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #ffcc66;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .floating-element {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0;
+            animation: floatElement 6s ease-in-out forwards;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(255, 204, 102, 0.8);
+        }
+
+        @keyframes floatElement {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .greeting-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            padding: 30px;
+            background: rgba(10, 25, 47, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 204, 102, 0.4);
+            box-shadow: 0 0 30px rgba(255, 153, 51, 0.3);
+        }
+
+        .greeting-message.active {
+            opacity: 1;
+        }
+
+        .greeting-message h2 {
+            color: #ffcc66;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 153, 51, 0.6);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .greeting-message p {
+            color: rgba(255, 221, 153, 0.9);
+            font-size: 20px;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+
+        .family-silhouette {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 15px rgba(255, 204, 102, 0.6));
+            transition: opacity 1s ease;
+        }
+
+        .family-silhouette.active {
+            opacity: 1;
+        }
+
+        .interactive-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .heart-pulse {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .heart-pulse::before,
+        .heart-pulse::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff4d6d"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') center no-repeat;
+            background-size: contain;
+            animation: pulse 2s infinite;
+            opacity: 0;
+        }
+
+        .heart-pulse::after {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .greeting-message {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .greeting-message h2 {
+                font-size: 28px;
+            }
+
+            .greeting-message p {
+                font-size: 18px;
+            }
+
+            .message {
+                font-size: 1.8rem;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="mountains"></div>
+    <div class="family-silhouette" id="familySilhouette">
+        <svg width="250" height="150" viewBox="0 0 250 150">
+            <path d="M50,120 L60,80 L70,120" stroke="#ffcc66" stroke-width="3" fill="none" />
+            <circle cx="60" cy="70" r="10" fill="#ffcc66" />
+            <path d="M120,120 L130,60 L140,120" stroke="#ffcc66" stroke-width="4" fill="none" />
+            <circle cx="130" cy="50" r="15" fill="#ffcc66" />
+            <path d="M190,120 L200,90 L210,120" stroke="#ffcc66" stroke-width="3" fill="none" />
+            <circle cx="200" cy="80" r="8" fill="#ffcc66" />
+            <path d="M80,120 Q100,100 120,120" stroke="#ffcc66" stroke-width="2" fill="none" />
+            <path d="M140,120 Q160,100 180,120" stroke="#ffcc66" stroke-width="2" fill="none" />
+        </svg>
+    </div>
+
+    <div class="music-control" id="musicToggle">
+        <i class="fa fa-play" id="playIcon"></i>
+        <i class="fa fa-pause hidden" id="pauseIcon"></i>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="https://music.163.com/song/media/outer/url?id=18627133.mp3" type="audio/mpeg">
+    </audio>
+
+    <canvas id="fireworks"></canvas>
+
+    <!-- 问候消息 -->
+    <div class="greeting-message" id="greetingMessage">
+        <h2>亲爱的爸爸</h2>
+        <p>
+            父亲节快乐！<br>
+            您是我生命中最温暖的光，<br>
+            感谢您一直以来的守护与付出。<br>
+            愿时光温柔待您，健康快乐每一天！
+        </p>
+    </div>
+
+    <div class="footer">父亲节快乐 · 爸爸，我永远爱您 ❤️</div>
+    <div class="interactive-area" id="interactiveArea"></div>
+
+    <script>
+        // 创建星空背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 200;
+
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                // 随机位置和大小
+                const size = Math.random() * 3 + 1;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 4 + 2;
+
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.animationDelay = `${delay}s`;
+                star.style.animationDuration = `${duration}s`;
+
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // 创建漂浮元素（心形、星星等）
+        function createFloatingElement(x, y, type) {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+
+            // 不同类型元素
+            const elements = {
+                'heart': '❤️',
+                'star': '⭐',
+                'smile': '😊',
+                'sun': '☀️',
+                'father': '👨',
+                'child': '👶'
+            };
+
+            element.innerHTML = elements[type] || elements['heart'];
+
+            // 随机大小和动画持续时间
+            const size = Math.random() * 20 + 15;
+            const duration = Math.random() * 4 + 5;
+            const color = type === 'heart' ? '#ff4d6d' :
+                         type === 'star' ? '#ffcc66' :
+                         type === 'smile' ? '#ffdd33' :
+                         type === 'sun' ? '#ff9900' : '#66ccff';
+
+            element.style.color = color;
+            element.style.fontSize = `${size}px`;
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
+            element.style.animationDuration = `${duration}s`;
+            element.style.animationDelay = `${Math.random() * 2}s`;
+
+            document.body.appendChild(element);
+
+            // 动画结束后移除元素
+            setTimeout(() => {
+                element.remove();
+            }, duration * 1000);
+        }
+
+        // 创建心形脉冲效果
+        function createHeartPulse(x, y) {
+            const pulse = document.createElement('div');
+            pulse.className = 'heart-pulse';
+            pulse.style.left = `${x}px`;
+            pulse.style.top = `${y}px`;
+
+            document.body.appendChild(pulse);
+
+            setTimeout(() => {
+                pulse.remove();
+            }, 2000);
+        }
+
+        // 获取DOM元素
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const greetingMessage = document.getElementById('greetingMessage');
+        const familySilhouette = document.getElementById('familySilhouette');
+        const interactiveArea = document.getElementById('interactiveArea');
+
+        // 存储所有消息元素
+        const messages = [];
+
+        // 设置Canvas尺寸
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // 烟花粒子类
+        class Particle {
+            constructor(x, y, color, velocity, isSpark = false) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * (isSpark ? 5 : 10),
+                    y: (Math.random() - 0.5) * (isSpark ? 5 : 10)
+                };
+                this.radius = isSpark ? Math.random() * 2 : Math.random() * 3 + 1;
+                this.alpha = 1;
+                this.gravity = 0.05;
+                this.friction = isSpark ? 0.99 : 0.98;
+                this.life = isSpark ? 60 : 100;
+                this.initialLife = this.life;
+                this.isSpark = isSpark;
+            }
+
+            update() {
+                this.velocity.y += this.gravity;
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.life--;
+                this.alpha = this.life / this.initialLife;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // 烟花类
+        class Firework {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * canvas.height * 0.5 + canvas.height * 0.2;
+                this.color = `hsl(${Math.random() * 60 + 20}, 100%, 65%)`; // 暖色调
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 3,
+                    y: Math.random() * -8 - 10
+                };
+                this.radius = Math.random() * 3 + 2;
+                this.gravity = 0.1;
+                this.exploded = false;
+                this.particles = [];
+                this.messageElement = null;
+                this.messages = [
+                    "爸爸，您辛苦了！",
+                    "父亲节快乐！",
+                    "我爱您，爸爸！",
+                    "谢谢您为我做的一切！",
+                    "祝您健康长寿！",
+                    "您永远是我的英雄！",
+                    "您的爱是我前进的动力！",
+                    "感谢您教会我如何成为一个好人！",
+                    "您是最好的父亲！",
+                    "愿您每天都开心快乐！",
+                    "爸爸，您是我的超人！",
+                    "有您在，我永远有安全感",
+                    "您是我最坚强的后盾",
+                    "爸爸，谢谢您的包容",
+                    "您教会了我勇敢和坚强",
+                    "我会永远做您的骄傲"
+                ];
+                this.currentMessage = this.messages[Math.floor(Math.random() * this.messages.length)];
+            }
+
+            update() {
+                if (!this.exploded) {
+                    this.velocity.y += this.gravity;
+                    this.x += this.velocity.x;
+                    this.y += this.velocity.y;
+
+                    if (this.velocity.y >= 0 || this.y <= this.targetY) {
+                        this.explode();
+                    }
+                } else {
+                    for (let i = this.particles.length - 1; i >= 0; i--) {
+                        const particle = this.particles[i];
+                        particle.update();
+
+                        if (particle.life <= 0) {
+                            this.particles.splice(i, 1);
+                        }
+                    }
+
+                    if (this.particles.length === 0 && this.messageElement) {
+                        this.messageElement.remove();
+                        this.reset();
+                    }
+                }
+            }
+
+            explode() {
+                this.exploded = true;
+
+                // 创建烟花粒子
+                for (let i = 0; i < 150; i++) {
+                    this.particles.push(new Particle(this.x, this.y, this.color, this.velocity));
+                }
+
+                // 创建烟花火花
+                for (let i = 0; i < 100; i++) {
+                    this.particles.push(new Particle(this.x, this.y, this.color, this.velocity, true));
+                }
+
+                // 随机创建一些漂浮元素
+                const elementTypes = ['heart', 'star', 'smile', 'father', 'child'];
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        const type = elementTypes[Math.floor(Math.random() * elementTypes.length)];
+                        createFloatingElement(
+                            this.x + (Math.random() - 0.5) * 100,
+                            this.y + (Math.random() - 0.5) * 100,
+                            type
+                        );
+                    }, i * 100);
+                }
+
+                // 显示文字
+                this.displayMessage();
+            }
+
+            displayMessage() {
+                if (this.messageElement) return;
+
+                // 创建新的消息元素
+                this.messageElement = document.createElement('div');
+                this.messageElement.className = 'message';
+                this.messageElement.textContent = this.currentMessage;
+                document.body.appendChild(this.messageElement);
+
+                // 定位到烟花爆炸位置
+                this.messageElement.style.left = `${this.x}px`;
+                this.messageElement.style.top = `${this.y}px`;
+
+                // 添加到消息数组
+                messages.push(this.messageElement);
+
+                // 触发动画
+                setTimeout(() => {
+                    this.messageElement.classList.add('active');
+
+                    // 3秒后淡出
+                    setTimeout(() => {
+                        this.messageElement.classList.remove('active');
+                        this.messageElement.classList.add('fade');
+
+                        // 动画结束后移除元素
+                        setTimeout(() => {
+                            if (this.messageElement && document.body.contains(this.messageElement)) {
+                                document.body.removeChild(this.messageElement);
+
+                                // 从消息数组中移除
+                                const index = messages.indexOf(this.messageElement);
+                                if (index !== -1) {
+                                    messages.splice(index, 1);
+                                }
+                            }
+                        }, 500);
+                    }, 3000);
+                }, 10);
+            }
+
+            draw() {
+                if (!this.exploded) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+
+                    // 绘制烟花尾迹
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x - this.velocity.x * 2, this.y - this.velocity.y * 2);
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                } else {
+                    for (const particle of this.particles) {
+                        particle.draw();
+                    }
+                }
+            }
+        }
+
+        // 创建烟花数组
+        const fireworks = [];
+
+        // 新增点击冷却时间和最大烟花数量限制
+        const MAX_FIREWORKS = 8; // 最大同时存在烟花数量
+        const CLICK_COOLDOWN = 800; // 点击冷却时间（毫秒）
+        let lastClickTime = 0;
+
+        // 动画循环
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (const firework of fireworks) {
+                firework.update();
+                firework.draw();
+            }
+        }
+        animate();
+
+        // 音乐控制
+        musicToggle.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().catch(e => {
+                    console.error("播放失败:", e);
+                    alert("背景音乐播放失败，您可以手动点击播放按钮尝试。");
+                });
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                backgroundMusic.pause();
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            }
+        });
+
+        // 自动播放音乐
+        function tryPlayMusic() {
+            backgroundMusic.play().catch(e => {
+                console.log("自动播放被浏览器阻止:", e);
+            });
+        }
+
+        // 页面加载完成后显示问候消息，然后自动开始烟花
+        window.addEventListener('load', () => {
+            // 显示问候消息
+            setTimeout(() => {
+                greetingMessage.classList.add('active');
+                familySilhouette.classList.add('active');
+            }, 500);
+
+            // 3秒后开始烟花
+            setTimeout(() => {
+                // 创建初始烟花
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        fireworks.push(new Firework());
+                    }, i * 1000);
+                }
+
+                // 随机添加新烟花
+                setInterval(() => {
+                    if (Math.random() < 0.03 && fireworks.length < 8) {
+                        fireworks.push(new Firework());
+                    }
+                }, 1000);
+
+                // 尝试播放音乐
+                tryPlayMusic();
+            }, 3000);
+        });
+
+        // 优化后的点击事件处理
+        interactiveArea.addEventListener('click', (e) => {
+            const currentTime = Date.now();
+            // 检查冷却时间
+            if (currentTime - lastClickTime < CLICK_COOLDOWN) return;
+            lastClickTime = currentTime;
+
+            // 检查最大烟花数量
+            if (fireworks.length >= MAX_FIREWORKS) return;
+
+            const firework = new Firework();
+            firework.x = e.clientX;
+            firework.y = canvas.height;
+            firework.targetY = Math.random() * canvas.height * 0.3 + canvas.height * 0.2;
+            fireworks.push(firework);
+
+            createHeartPulse(e.clientX, e.clientY);
+        });
+
+        // 鼠标移动时创建漂浮元素
+        interactiveArea.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.1) {
+                const types = ['heart', 'star', 'smile'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                createFloatingElement(e.clientX, e.clientY, type);
+            }
+        });
+    </script>
+</body>
+</html>
