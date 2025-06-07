@@ -16,15 +16,108 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            position: relative;
+        }
+
+        /* 启动页面样式 */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a192f 0%, #1a3a5f 50%, #0a192f 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s, transform 1s;
+        }
+        
+        .splash-screen h1 {
+            color: #ffcc66;
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 204, 102, 0.8);
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+        
+        .splash-screen p {
+            color: rgba(255, 221, 153, 0.9);
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            margin-bottom: 60px;
+            text-align: center;
+            max-width: 80%;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 1s;
+        }
+        
+        .blessing-bag {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ff9900 0%, #ffcc66 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(255, 153, 51, 0.8);
+            transition: all 0.5s ease;
+            animation: floatBag 3s ease-in-out infinite, pulse 2s infinite;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1.5s;
+        }
+        
+        .blessing-bag:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(255, 153, 51, 1);
+        }
+        
+        .blessing-bag i {
+            font-size: 70px;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .blessing-bag::after {
+            content: '点击开启祝福';
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffcc66;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            white-space: nowrap;
+            text-shadow: 0 0 10px rgba(255, 204, 102, 0.7);
+            animation: pulseText 2s infinite;
+        }
+        
+        /* 主页面样式 - 初始隐藏 */
+        .main-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: none;
             background: linear-gradient(135deg, #0a192f 0%, #1a3a5f 50%, #0a192f 100%);
             background-image:
                 radial-gradient(circle at 15% 25%, rgba(255, 204, 102, 0.15) 0%, transparent 25%),
                 radial-gradient(circle at 85% 70%, rgba(255, 153, 51, 0.15) 0%, transparent 25%);
-            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
-            color: #fff;
-            position: relative;
+            overflow: hidden;
         }
-
+        
         canvas {
             display: block;
             position: absolute;
@@ -236,18 +329,7 @@
             animation-delay: 1s;
         }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(2.5);
-                opacity: 0;
-            }
-        }
-
-        /* 新增音乐开关样式 */
+        /* 音乐开关样式 */
         .music-toggle {
             position: fixed;
             top: 20px;
@@ -455,6 +537,31 @@
             animation: childMove 5s infinite ease-in-out;
         }
 
+        /* 动画定义 */
+        @keyframes floatBag {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 153, 51, 0.8); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 50px rgba(255, 153, 51, 1); }
+            100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 153, 51, 0.8); }
+        }
+        
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @keyframes dadMove {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
@@ -480,104 +587,125 @@
             .father-child-animation {
                 bottom: 25%;
             }
+            
+            .blessing-bag {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .blessing-bag i {
+                font-size: 50px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 音频标签 -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="fq.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放。
-    </audio>
-
-    <!-- 音乐播放开关 -->
-    <button class="music-toggle" id="musicToggle">
-        <i class="fa fa-volume-up"></i> 音乐开启
-    </button>
-
-    <!-- 烟花开关 -->
-    <button class="fireworks-toggle" id="fireworksToggle">
-        <i class="fa fa-toggle-on"></i> 烟花开启
-    </button>
-
-    <div class="stars" id="stars"></div>
-    <div class="mountains"></div>
+    <!-- 启动页面 -->
+    <div class="splash-screen" id="splashScreen">
+        <h1>父亲节特别祝福</h1>
+        <p>一份特别的礼物送给最伟大的爸爸</p>
+        <div class="blessing-bag" id="blessingBag">
+            <i class="fas fa-gift"></i>
+        </div>
+    </div>
     
-    <!-- 父子互动动画 -->
-    <div class="father-child-animation" id="fatherChildAnimation">
-        <div class="dad">
-            <svg width="100%" height="100%" viewBox="0 0 80 120">
-                <circle cx="40" cy="30" r="15" fill="#ffcc66" />
-                <rect x="25" y="45" width="30" height="50" fill="#ffcc66" />
-                <rect x="15" y="45" width="10" height="40" fill="#ffcc66" />
-                <rect x="55" y="45" width="10" height="40" fill="#ffcc66" />
-                <rect x="20" y="95" width="15" height="25" fill="#ffcc66" />
-                <rect x="45" y="95" width="15" height="25" fill="#ffcc66" />
-            </svg>
-        </div>
-        <div class="child">
-            <svg width="100%" height="100%" viewBox="0 0 60 90">
-                <circle cx="30" cy="25" r="12" fill="#ffcc66" />
-                <rect x="20" y="37" width="20" height="40" fill="#ffcc66" />
-                <rect x="10" y="37" width="8" height="30" fill="#ffcc66" />
-                <rect x="42" y="37" width="8" height="30" fill="#ffcc66" />
-                <rect x="15" y="77" width="10" height="13" fill="#ffcc66" />
-                <rect x="35" y="77" width="10" height="13" fill="#ffcc66" />
-            </svg>
-        </div>
-    </div>
+    <!-- 主页面内容 - 初始隐藏 -->
+    <div class="main-content" id="mainContent">
+        <!-- 音频标签 -->
+        <audio id="backgroundMusic" loop>
+            <source src="fq.mp3" type="audio/mpeg">
+            您的浏览器不支持音频播放。
+        </audio>
 
-    <div class="family-silhouette" id="familySilhouette">
-        <svg width="100%" height="100%" viewBox="0 0 250 150">
-            <path d="M50,120 L60,80 L70,120" stroke="#ffcc66" stroke-width="3" fill="none" />
-            <circle cx="60" cy="70" r="10" fill="#ffcc66" />
-            <path d="M120,120 L130,60 L140,120" stroke="#ffcc66" stroke-width="4" fill="none" />
-            <circle cx="130" cy="50" r="15" fill="#ffcc66" />
-            <path d="M190,120 L200,90 L210,120" stroke="#ffcc66" stroke-width="3" fill="none" />
-            <circle cx="200" cy="80" r="8" fill="#ffcc66" />
-            <path d="M80,120 Q100,100 120,120" stroke="#ffcc66" stroke-width="2" fill="none" />
-            <path d="M140,120 Q160,100 180,120" stroke="#ffcc66" stroke-width="2" fill="none" />
-        </svg>
-    </div>
+        <!-- 音乐播放开关 -->
+        <button class="music-toggle" id="musicToggle">
+            <i class="fa fa-volume-up"></i> 音乐开启
+        </button>
 
-    <!-- 回忆墙 -->
-    <div class="memory-wall" id="memoryWall">
-        <h3>我们的珍贵回忆</h3>
-        <div class="memory-item">教我骑自行车</div>
-        <div class="memory-item">给我买第一本书</div>
-        <div class="memory-item">陪我看足球比赛</div>
-        <div class="memory-item">深夜为我补习功课</div>
-        <div class="memory-item">教我做人要正直善良</div>
-    </div>
+        <!-- 烟花开关 -->
+        <button class="fireworks-toggle" id="fireworksToggle">
+            <i class="fa fa-toggle-on"></i> 烟花开启
+        </button>
 
-    <!-- 信封动画 -->
-    <div class="letter-container" id="letterContainer">
-        <div class="envelope">
-            <div class="letter">
-                <p>亲爱的爸爸：<br>感谢您为我付出的一切<br>您是我生命中最重要的人<br>父亲节快乐！</p>
+        <div class="stars" id="stars"></div>
+        <div class="mountains"></div>
+        
+        <!-- 父子互动动画 -->
+        <div class="father-child-animation" id="fatherChildAnimation">
+            <div class="dad">
+                <svg width="100%" height="100%" viewBox="0 0 80 120">
+                    <circle cx="40" cy="30" r="15" fill="#ffcc66" />
+                    <rect x="25" y="45" width="30" height="50" fill="#ffcc66" />
+                    <rect x="15" y="45" width="10" height="40" fill="#ffcc66" />
+                    <rect x="55" y="45" width="10" height="40" fill="#ffcc66" />
+                    <rect x="20" y="95" width="15" height="25" fill="#ffcc66" />
+                    <rect x="45" y="95" width="15" height="25" fill="#ffcc66" />
+                </svg>
+            </div>
+            <div class="child">
+                <svg width="100%" height="100%" viewBox="0 0 60 90">
+                    <circle cx="30" cy="25" r="12" fill="#ffcc66" />
+                    <rect x="20" y="37" width="20" height="40" fill="#ffcc66" />
+                    <rect x="10" y="37" width="8" height="30" fill="#ffcc66" />
+                    <rect x="42" y="37" width="8" height="30" fill="#ffcc66" />
+                    <rect x="15" y="77" width="10" height="13" fill="#ffcc66" />
+                    <rect x="35" y="77" width="10" height="13" fill="#ffcc66" />
+                </svg>
             </div>
         </div>
+
+        <div class="family-silhouette" id="familySilhouette">
+            <svg width="100%" height="100%" viewBox="0 0 250 150">
+                <path d="M50,120 L60,80 L70,120" stroke="#ffcc66" stroke-width="3" fill="none" />
+                <circle cx="60" cy="70" r="10" fill="#ffcc66" />
+                <path d="M120,120 L130,60 L140,120" stroke="#ffcc66" stroke-width="4" fill="none" />
+                <circle cx="130" cy="50" r="15" fill="#ffcc66" />
+                <path d="M190,120 L200,90 L210,120" stroke="#ffcc66" stroke-width="3" fill="none" />
+                <circle cx="200" cy="80" r="8" fill="#ffcc66" />
+                <path d="M80,120 Q100,100 120,120" stroke="#ffcc66" stroke-width="2" fill="none" />
+                <path d="M140,120 Q160,100 180,120" stroke="#ffcc66" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+
+        <!-- 回忆墙 -->
+        <div class="memory-wall" id="memoryWall">
+            <h3>我们的珍贵回忆</h3>
+            <div class="memory-item">教我骑自行车</div>
+            <div class="memory-item">给我买第一本书</div>
+            <div class="memory-item">陪我看足球比赛</div>
+            <div class="memory-item">深夜为我补习功课</div>
+            <div class="memory-item">教我做人要正直善良</div>
+        </div>
+
+        <!-- 信封动画 -->
+        <div class="letter-container" id="letterContainer">
+            <div class="envelope">
+                <div class="letter">
+                    <p>亲爱的爸爸：<br>感谢您为我付出的一切<br>您是我生命中最重要的人<br>父亲节快乐！</p>
+                </div>
+            </div>
+        </div>
+
+        <canvas id="fireworks"></canvas>
+
+        <!-- 问候消息 -->
+        <div class="greeting-message" id="greetingMessage">
+            <h2>亲爱的爸爸</h2>
+            <p>
+                父亲节快乐！<br>
+                您是我生命中最温暖的光，<br>
+                感谢您一直以来的守护与付出。<br>
+                愿时光温柔待您，健康快乐每一天！
+            </p>
+            <p style="margin-top: 20px; font-size: clamp(1rem, 3vw, 1.2rem);">
+                您的肩膀是我看世界的瞭望台<br>
+                是您把我举过头顶看世界
+            </p>
+        </div>
+
+        <div class="footer">父亲节快乐 · 爸爸，我永远爱您 ❤️</div>
+        <div class="interactive-area" id="interactiveArea"></div>
     </div>
-
-    <canvas id="fireworks"></canvas>
-
-    <!-- 问候消息 -->
-    <div class="greeting-message" id="greetingMessage">
-        <h2>亲爱的爸爸</h2>
-        <p>
-            父亲节快乐！<br>
-            您是我生命中最温暖的光，<br>
-            感谢您一直以来的守护与付出。<br>
-            愿时光温柔待您，健康快乐每一天！
-        </p>
-        <p style="margin-top: 20px; font-size: clamp(1rem, 3vw, 1.2rem);">
-            您的肩膀是我看世界的瞭望台<br>
-            是您把我举过头顶看世界
-        </p>
-    </div>
-
-    <div class="footer">父亲节快乐 · 爸爸，我永远爱您 ❤️</div>
-    <div class="interactive-area" id="interactiveArea"></div>
 
     <script>
         // 创建星空背景
@@ -606,7 +734,6 @@
                 starsContainer.appendChild(star);
             }
         }
-        createStars();
 
         // 创建漂浮元素（心形、星星等）
         function createFloatingElement(x, y, type) {
@@ -638,10 +765,10 @@
 
             element.style.color = color;
             element.style.fontSize = `${size}px`;
-            element.style.left = `${x}px`;
-            element.style.top = `${y}px`;
             element.style.animationDuration = `${duration}s`;
             element.style.animationDelay = `${Math.random() * 2}s`;
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
 
             document.body.appendChild(element);
 
@@ -677,7 +804,10 @@
         const fatherChildAnimation = document.getElementById('fatherChildAnimation');
         const audio = document.getElementById('backgroundMusic');
         const musicToggle = document.getElementById('musicToggle');
-
+        const splashScreen = document.getElementById('splashScreen');
+        const mainContent = document.getElementById('mainContent');
+        const blessingBag = document.getElementById('blessingBag');
+        
         // 存储所有消息元素
         const messages = [];
 
@@ -693,9 +823,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
+        
         // 烟花粒子类
         class Particle {
             constructor(x, y, color, velocity, isSpark = false, isHeart = false) {
@@ -980,10 +1108,13 @@
                 firework.draw();
             }
         }
-        animate();
-
-        // 页面加载完成后逻辑
-        window.addEventListener('load', () => {
+        
+        // 初始化页面
+        function initPage() {
+            resizeCanvas();
+            createStars();
+            animate();
+            
             // 显示问候消息
             setTimeout(() => {
                 greetingMessage.classList.add('active');
@@ -1018,13 +1149,106 @@
                     clearInterval(intervalId);
                 });
             }, 3000);
+        }
+        
+        // 福袋点击事件 - 启动主页面
+        blessingBag.addEventListener('click', () => {
+            // 播放开启音效
+            playOpenSound();
+            
+            // 创建粒子效果
+            createOpenParticles();
+            
+            // 隐藏启动页面，显示主页面
+            setTimeout(() => {
+                splashScreen.style.opacity = '0';
+                splashScreen.style.transform = 'scale(1.2)';
+                
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                    // 初始化主页面
+                    initPage();
+                    
+                    // 播放背景音乐
+                    audio.play().catch(error => {
+                        console.log('音乐播放失败:', error);
+                        musicActive = false;
+                        musicToggle.innerHTML = '<i class="fa fa-volume-off"></i> 音乐关闭';
+                    });
+                }, 1000);
+            }, 800);
+        });
+        
+        // 创建开启粒子效果
+        function createOpenParticles() {
+            const bagRect = blessingBag.getBoundingClientRect();
+            const centerX = bagRect.left + bagRect.width / 2;
+            const centerY = bagRect.top + bagRect.height / 2;
+            
+            // 创建多个粒子
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'floating-element';
+                    
+                    // 随机选择粒子类型
+                    const types = ['❤️', '⭐', '✨', '👨', '👶', '🎁', '💕', '🙏', '👍'];
+                    const randomType = types[Math.floor(Math.random() * types.length)];
+                    particle.innerHTML = randomType;
+                    
+                    // 随机大小和动画持续时间
+                    const size = Math.random() * 20 + 15;
+                    const duration = Math.random() * 4 + 5;
+                    const color = randomType === '❤️' ? '#ff4d6d' :
+                                 randomType === '⭐' ? '#ffcc66' :
+                                 randomType === '✨' ? '#ffdd33' : 
+                                 randomType === '👨' ? '#66ccff' : '#ff9900';
+                    
+                    particle.style.color = color;
+                    particle.style.fontSize = `${size}px`;
+                    particle.style.animationDuration = `${duration}s`;
+                    particle.style.left = `${centerX}px`;
+                    particle.style.top = `${centerY}px`;
+                    
+                    document.body.appendChild(particle);
+                    
+                    // 动画结束后移除
+                    setTimeout(() => {
+                        particle.remove();
+                    }, duration * 1000);
+                }, i * 50);
+            }
+        }
+        
+        // 播放开启音效
+        function playOpenSound() {
+            // 创建音频上下文
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // 设置音效
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+            oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+            oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+            oscillator.frequency.setValueAtTime(1046.5, audioContext.currentTime + 0.3); // C6
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.2);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1.2);
+        }
 
-            // 尝试自动播放音乐
-            audio.play().catch(error => {
-                console.log('浏览器阻止自动播放音乐:', error);
-                musicActive = false;
-                musicToggle.innerHTML = '<i class="fa fa-volume-off"></i> 音乐关闭';
-            });
+        // 页面加载完成后逻辑
+        window.addEventListener('load', () => {
+            resizeCanvas();
         });
 
         // 点击事件处理
