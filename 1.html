@@ -19,6 +19,7 @@
             font-family: 'Arial', 'Microsoft YaHei', sans-serif;
             position: relative;
             touch-action: manipulation;
+            background: linear-gradient(135deg, #0a192f 0%, #1a3a5f 50%, #0a192f 100%);
         }
 
         /* 启动页面样式 */
@@ -168,13 +169,17 @@
             left: 0;
             right: 0;
             text-align: center;
-            color: rgba(255, 221, 153, 0.8);
+            color: rgba(255, 221, 153, 0.9);
             font-size: clamp(0.9rem, 3vw, 1.1rem);
-            z-index: 2;
+            z-index: 10; /* 提高层级 */
             font-family: 'Arial', sans-serif;
             text-shadow: 0 0 10px rgba(255, 204, 102, 0.5);
             letter-spacing: 1px;
-            padding: 0 10px;
+            padding: 12px 20px; /* 增加内边距 */
+            background: rgba(10, 25, 47, 0.6); /* 添加半透明背景 */
+            backdrop-filter: blur(5px); /* 毛玻璃效果 */
+            border-top: 1px solid rgba(255, 204, 102, 0.3);
+            border-bottom: 1px solid rgba(255, 204, 102, 0.3);
         }
 
         .mountains {
@@ -444,19 +449,17 @@
         /* 信封动画样式 */
         .letter-container {
             position: absolute;
-            bottom: clamp(70px, 20vh, 140px);
-            right: clamp(10px, 3vw, 30px);
-            width: clamp(130px, 25vw, 180px);
-            height: clamp(90px, 18vw, 130px);
-            z-index: 4;
-            perspective: 1000px;
-            transform: translateY(30px);
+            bottom: 80px; /* 在底部文字上方 */
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(120px, 20vw, 160px);
+            height: clamp(80px, 15vw, 110px);
+            z-index: 9; /* 在底部文字下方 */
             opacity: 0;
             transition: all 1s ease;
         }
-
+        
         .letter-container.active {
-            transform: translateY(0);
             opacity: 1;
         }
 
@@ -466,14 +469,16 @@
             height: 100%;
             background: linear-gradient(135deg, #ffcc66 0%, #ff9900 100%);
             border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(255, 153, 51, 0.5);
             cursor: pointer;
-            transition: transform 0.6s;
+            transition: all 0.5s ease;
             transform-style: preserve-3d;
             transform-origin: center;
-            z-index: 2;
+            z-index: 10;
         }
-
+        
         .envelope::before {
             content: '';
             position: absolute;
@@ -486,7 +491,7 @@
             border-top: calc(50% - 1px) solid #ff9900;
             z-index: 3;
         }
-
+        
         .envelope .letter {
             position: absolute;
             top: 8px;
@@ -502,14 +507,14 @@
             transform: translateY(100%);
             transition: transform 0.6s ease;
         }
-
+        
         .envelope .letter p {
             font-size: clamp(0.6rem, 2vw, 0.8rem);
             color: #333;
             line-height: 1.5;
             font-family: '楷体', serif;
         }
-
+        
         /* 父子互动动画 */
         .father-child-animation {
             position: absolute;
@@ -522,28 +527,28 @@
             opacity: 0;
             transition: opacity 1.5s ease;
         }
-
+        
         .father-child-animation.active {
             opacity: 1;
         }
-
+        
         .father-child-animation .dad, .father-child-animation .child {
             position: absolute;
             width: clamp(40px, 15vw, 70px);
             height: clamp(60px, 20vw, 110px);
             bottom: 0;
         }
-
+        
         .father-child-animation .dad {
             left: 0;
             animation: dadMove 5s infinite ease-in-out;
         }
-
+        
         .father-child-animation .child {
             left: clamp(50px, 20vw, 90px);
             animation: childMove 5s infinite ease-in-out;
         }
-
+        
         /* 动画定义 */
         @keyframes floatBag {
             0%, 100% { transform: translateY(0); }
@@ -577,6 +582,15 @@
         @keyframes childMove {
             0%, 100% { transform: translateY(0) scale(0.8); }
             50% { transform: translateY(-40px) scale(0.9); }
+        }
+
+        /* 移动设备优化 */
+        @media (max-width: 768px) {
+            .letter-container {
+                width: clamp(100px, 18vw, 140px);
+                height: clamp(70px, 14vw, 100px);
+                bottom: 70px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -614,7 +628,9 @@
             }
             
             .letter-container {
-                bottom: 70px;
+                width: 90px;
+                height: 65px;
+                bottom: 65px;
             }
             
             .father-child-animation {
@@ -628,6 +644,29 @@
             
             .footer {
                 font-size: 0.8rem;
+                padding: 10px 15px;
+                bottom: 10px;
+            }
+            
+            .greeting-message {
+                top: 45%;
+            }
+            
+            .family-silhouette {
+                bottom: 25%;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .letter-container {
+                width: 80px;
+                height: 55px;
+                bottom: 60px;
+            }
+            
+            .memory-wall {
+                top: 55px;
+                width: 110px;
             }
         }
     </style>
@@ -744,7 +783,7 @@
         // 创建星空背景
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starsCount = 100; // 减少星星数量
+            const starsCount = 100;
 
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
@@ -845,10 +884,10 @@
         const messages = [];
 
         // 开关相关变量
-        let fireworksActive = true; // 烟花初始开启
-        let musicActive = true;     // 音乐初始开启
-        const MAX_FIREWORKS = 5;    // 减少最大同时存在烟花数量（原为8）
-        const CLICK_COOLDOWN = 800; // 点击冷却时间（毫秒）
+        let fireworksActive = true;
+        let musicActive = true;
+        const MAX_FIREWORKS = 5;
+        const CLICK_COOLDOWN = 800;
         let lastClickTime = 0;
 
         // 设置Canvas尺寸
@@ -934,7 +973,7 @@
                 this.x = Math.random() * canvas.width;
                 this.y = canvas.height;
                 this.targetY = Math.random() * canvas.height * 0.5 + canvas.height * 0.2;
-                this.color = `hsl(${Math.random() * 60 + 20}, 100%, 65%)`; // 暖色调
+                this.color = `hsl(${Math.random() * 60 + 20}, 100%, 65%)`;
                 this.velocity = {
                     x: (Math.random() - 0.5) * 3,
                     y: Math.random() * -8 - 10
@@ -967,7 +1006,7 @@
                     "我会永远爱您，爸爸"
                 ];
                 this.currentMessage = this.messages[Math.floor(Math.random() * this.messages.length)];
-                this.isHeartFirework = Math.random() > 0.7; // 30%的几率是心形烟花
+                this.isHeartFirework = Math.random() > 0.7;
             }
 
             explode() {
@@ -1133,7 +1172,7 @@
         // 动画循环
         function animate() {
             requestAnimationFrame(animate);
-            if (!fireworksActive) return; // 关闭时不更新画布
+            if (!fireworksActive) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             for (const firework of fireworks) {
@@ -1267,10 +1306,10 @@
             
             // 设置音效
             oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-            oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
-            oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
-            oscillator.frequency.setValueAtTime(1046.5, audioContext.currentTime + 0.3); // C6
+            oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
+            oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
+            oscillator.frequency.setValueAtTime(1046.5, audioContext.currentTime + 0.3);
             
             gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.2);
@@ -1288,7 +1327,7 @@
         interactiveArea.addEventListener('click', (e) => {
             const currentTime = Date.now();
             if (currentTime - lastClickTime < CLICK_COOLDOWN) return;
-            if (!fireworksActive) return; // 关闭时禁止点击创建
+            if (!fireworksActive) return;
             lastClickTime = currentTime;
 
             if (fireworks.length >= MAX_FIREWORKS) return;
@@ -1305,7 +1344,7 @@
 
         // 移动端触摸事件处理
         interactiveArea.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // 防止触摸滚动
+            e.preventDefault();
             const touch = e.touches[0];
             const event = new MouseEvent('click', {
                 clientX: touch.clientX,
