@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>父亲节快乐 · 爸爸我爱您</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,6 +18,7 @@
             overflow: hidden;
             font-family: 'Arial', 'Microsoft YaHei', sans-serif;
             position: relative;
+            touch-action: manipulation;
         }
 
         /* 启动页面样式 */
@@ -34,15 +35,16 @@
             align-items: center;
             z-index: 100;
             transition: opacity 1s, transform 1s;
+            padding: 20px;
         }
         
         .splash-screen h1 {
             color: #ffcc66;
-            font-size: clamp(2rem, 6vw, 3rem);
-            margin-bottom: 40px;
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            margin-bottom: 30px;
             text-align: center;
             text-shadow: 0 0 20px rgba(255, 204, 102, 0.8);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s forwards 0.5s;
@@ -50,18 +52,18 @@
         
         .splash-screen p {
             color: rgba(255, 221, 153, 0.9);
-            font-size: clamp(1.2rem, 4vw, 1.6rem);
-            margin-bottom: 60px;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            margin-bottom: 40px;
             text-align: center;
-            max-width: 80%;
+            max-width: 90%;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s forwards 1s;
         }
         
         .blessing-bag {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             background: linear-gradient(135deg, #ff9900 0%, #ffcc66 100%);
             border-radius: 50%;
             display: flex;
@@ -87,7 +89,7 @@
         }
         
         .blessing-bag i {
-            font-size: 70px;
+            font-size: 50px;
             color: #fff;
             text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
         }
@@ -99,7 +101,7 @@
             left: 50%;
             transform: translateX(-50%);
             color: #ffcc66;
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-size: clamp(1rem, 3vw, 1.2rem);
             white-space: nowrap;
             text-shadow: 0 0 10px rgba(255, 204, 102, 0.7);
             animation: pulseText 2s infinite;
@@ -130,7 +132,7 @@
             position: absolute;
             color: white;
             font-family: 'Arial', sans-serif;
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             text-align: center;
             opacity: 0;
             text-shadow:
@@ -143,7 +145,7 @@
             transition: all 0.5s ease-out;
             white-space: nowrap;
             font-weight: bold;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 10px;
             background: rgba(10, 25, 47, 0.4);
             backdrop-filter: blur(5px);
@@ -167,11 +169,12 @@
             right: 0;
             text-align: center;
             color: rgba(255, 221, 153, 0.8);
-            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             z-index: 2;
             font-family: 'Arial', sans-serif;
             text-shadow: 0 0 10px rgba(255, 204, 102, 0.5);
             letter-spacing: 1px;
+            padding: 0 10px;
         }
 
         .mountains {
@@ -240,12 +243,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: clamp(280px, 85%, 600px);
+            width: clamp(280px, 90%, 600px);
             text-align: center;
             z-index: 5;
             opacity: 0;
             transition: opacity 1.2s ease-in-out;
-            padding: clamp(15px, 5vw, 30px);
+            padding: clamp(15px, 5vw, 25px);
             background: rgba(10, 25, 47, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -259,8 +262,8 @@
 
         .greeting-message h2 {
             color: #ffcc66;
-            font-size: clamp(1.8rem, 6vw, 2.5rem);
-            margin-bottom: 20px;
+            font-size: clamp(1.6rem, 6vw, 2.3rem);
+            margin-bottom: 15px;
             text-shadow: 0 0 15px rgba(255, 153, 51, 0.6);
             font-weight: bold;
             letter-spacing: 1px;
@@ -268,9 +271,9 @@
 
         .greeting-message p {
             color: rgba(255, 221, 153, 0.9);
-            font-size: clamp(1rem, 4vw, 1.3rem);
-            line-height: 1.8;
-            margin: 15px 0;
+            font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+            line-height: 1.7;
+            margin: 10px 0;
         }
 
         .family-silhouette {
@@ -283,6 +286,8 @@
             filter: drop-shadow(0 0 15px rgba(255, 204, 102, 0.6));
             transition: opacity 1s ease;
             animation: floatUpDown 4s ease-in-out infinite;
+            width: 200px;
+            height: 120px;
         }
 
         @keyframes floatUpDown {
@@ -332,15 +337,15 @@
         /* 音乐开关样式 */
         .music-toggle {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 10px;
             z-index: 10;
             background: rgba(255, 153, 51, 0.8);
             color: #0a192f;
             border: none;
             border-radius: 25px;
-            padding: 8px 16px;
-            font-size: clamp(1rem, 3vw, 1.2rem);
+            padding: 10px 15px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -361,15 +366,15 @@
         /* 烟花开关样式 */
         .fireworks-toggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 10px;
             z-index: 10;
             background: rgba(255, 153, 51, 0.8);
             color: #0a192f;
             border: none;
             border-radius: 25px;
-            padding: 8px 16px;
-            font-size: clamp(1rem, 3vw, 1.2rem);
+            padding: 10px 15px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -390,14 +395,14 @@
         /* 回忆墙样式 */
         .memory-wall {
             position: absolute;
-            top: 80px;
-            left: 20px;
-            width: clamp(150px, 30vw, 200px);
+            top: 70px;
+            left: 10px;
+            width: clamp(140px, 28vw, 180px);
             z-index: 3;
             background: rgba(10, 25, 47, 0.6);
             backdrop-filter: blur(5px);
             border-radius: 15px;
-            padding: 15px;
+            padding: 12px;
             border: 1px solid rgba(255, 204, 102, 0.3);
             box-shadow: 0 0 20px rgba(255, 153, 51, 0.2);
             transform: translateY(-20px);
@@ -412,19 +417,19 @@
 
         .memory-wall h3 {
             color: #ffcc66;
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            margin-bottom: 12px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            margin-bottom: 10px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 204, 102, 0.3);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         .memory-item {
             color: rgba(255, 221, 153, 0.9);
-            font-size: clamp(0.8rem, 2vw, 1rem);
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
             line-height: 1.6;
-            margin: 10px 0;
-            padding-left: 20px;
+            margin: 8px 0;
+            padding-left: 18px;
             position: relative;
         }
 
@@ -432,16 +437,17 @@
             content: "❤️";
             position: absolute;
             left: 0;
-            top: 2px;
+            top: 0;
+            font-size: 12px;
         }
 
         /* 信封动画样式 */
         .letter-container {
             position: absolute;
-            bottom: clamp(80px, 20vh, 150px);
-            right: clamp(20px, 5vw, 50px);
-            width: clamp(150px, 30vw, 200px);
-            height: clamp(100px, 20vw, 150px);
+            bottom: clamp(70px, 20vh, 140px);
+            right: clamp(10px, 3vw, 30px);
+            width: clamp(130px, 25vw, 180px);
+            height: clamp(90px, 18vw, 130px);
             z-index: 4;
             perspective: 1000px;
             transform: translateY(30px);
@@ -483,13 +489,13 @@
 
         .envelope .letter {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
             background: #fff;
             border-radius: 4px;
-            padding: 15px;
+            padding: 10px;
             z-index: 1;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -498,7 +504,7 @@
         }
 
         .envelope .letter p {
-            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            font-size: clamp(0.6rem, 2vw, 0.8rem);
             color: #333;
             line-height: 1.5;
             font-family: '楷体', serif;
@@ -507,10 +513,11 @@
         /* 父子互动动画 */
         .father-child-animation {
             position: absolute;
-            bottom: 30%;
-            left: clamp(20px, 5vw, 100px);
-            width: clamp(150px, 30vw, 250px);
-            height: clamp(100px, 20vw, 180px);
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(180px, 40vw, 250px);
+            height: clamp(100px, 25vw, 150px);
             z-index: 3;
             opacity: 0;
             transition: opacity 1.5s ease;
@@ -522,8 +529,8 @@
 
         .father-child-animation .dad, .father-child-animation .child {
             position: absolute;
-            width: clamp(40px, 15vw, 80px);
-            height: clamp(60px, 20vw, 120px);
+            width: clamp(40px, 15vw, 70px);
+            height: clamp(60px, 20vw, 110px);
             bottom: 0;
         }
 
@@ -533,7 +540,7 @@
         }
 
         .father-child-animation .child {
-            left: clamp(40px, 15vw, 80px);
+            left: clamp(50px, 20vw, 90px);
             animation: childMove 5s infinite ease-in-out;
         }
 
@@ -572,29 +579,55 @@
             50% { transform: translateY(-40px) scale(0.9); }
         }
 
-        @media (max-width: 768px) {
-            .memory-wall {
-                top: 70px;
-                width: 150px;
+        @media (max-width: 480px) {
+            .splash-screen h1 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
             }
             
-            .letter-container {
-                bottom: 80px;
-                width: 150px;
-                height: 120px;
-            }
-            
-            .father-child-animation {
-                bottom: 25%;
+            .splash-screen p {
+                font-size: 1rem;
+                margin-bottom: 30px;
             }
             
             .blessing-bag {
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
             }
             
             .blessing-bag i {
-                font-size: 50px;
+                font-size: 40px;
+            }
+            
+            .blessing-bag::after {
+                font-size: 0.9rem;
+            }
+            
+            .memory-wall {
+                top: 60px;
+                width: 130px;
+                padding: 10px;
+            }
+            
+            .memory-item {
+                font-size: 0.65rem;
+            }
+            
+            .letter-container {
+                bottom: 70px;
+            }
+            
+            .father-child-animation {
+                bottom: 20%;
+            }
+            
+            .music-toggle, .fireworks-toggle {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .footer {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -697,7 +730,7 @@
                 感谢您一直以来的守护与付出。<br>
                 愿时光温柔待您，健康快乐每一天！
             </p>
-            <p style="margin-top: 20px; font-size: clamp(1rem, 3vw, 1.2rem);">
+            <p style="margin-top: 20px; font-size: clamp(0.9rem, 3vw, 1.1rem);">
                 您的肩膀是我看世界的瞭望台<br>
                 是您把我举过头顶看世界
             </p>
@@ -711,7 +744,7 @@
         // 创建星空背景
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starsCount = 200;
+            const starsCount = 100; // 减少星星数量
 
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
@@ -814,7 +847,7 @@
         // 开关相关变量
         let fireworksActive = true; // 烟花初始开启
         let musicActive = true;     // 音乐初始开启
-        const MAX_FIREWORKS = 8;    // 最大同时存在烟花数量
+        const MAX_FIREWORKS = 5;    // 减少最大同时存在烟花数量（原为8）
         const CLICK_COOLDOWN = 800; // 点击冷却时间（毫秒）
         let lastClickTime = 0;
 
@@ -1270,13 +1303,15 @@
             createFloatingElement(e.clientX, e.clientY, 'love');
         });
 
-        // 鼠标移动时创建漂浮元素
-        interactiveArea.addEventListener('mousemove', (e) => {
-            if (Math.random() < 0.1) {
-                const types = ['heart', 'star', 'smile', 'thanks'];
-                const type = types[Math.floor(Math.random() * types.length)];
-                createFloatingElement(e.clientX, e.clientY, type);
-            }
+        // 移动端触摸事件处理
+        interactiveArea.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // 防止触摸滚动
+            const touch = e.touches[0];
+            const event = new MouseEvent('click', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            interactiveArea.dispatchEvent(event);
         });
 
         // 绑定开关点击事件
