@@ -21,7 +21,7 @@
             font-family: 'Arial', 'Microsoft YaHei', sans-serif;
             position: relative;
             touch-action: manipulation;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            background: linear-gradient(135deg, #1a3466 0%, #224387 50%, #1a3466 100%);
         }
 
         /* 启动页面 - 更温暖的设计 */
@@ -31,7 +31,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            background: linear-gradient(135deg, #1a3466 0%, #224387 50%, #1a3466 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -40,7 +40,7 @@
             transition: opacity 1s, transform 1s;
             padding: 20px;
         }
-        
+
         .splash-screen h1 {
             color: #ffd166;
             font-size: clamp(1.8rem, 6vw, 2.5rem);
@@ -53,7 +53,7 @@
             animation: fadeInUp 1s forwards 0.5s;
             line-height: 1.3;
         }
-        
+
         .splash-screen p {
             color: rgba(255, 235, 205, 0.9);
             font-size: clamp(1rem, 4vw, 1.2rem);
@@ -65,7 +65,7 @@
             animation: fadeInUp 1s forwards 1s;
             line-height: 1.6;
         }
-        
+
         .blessing-bag {
             width: 100px;
             height: 100px;
@@ -75,7 +75,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 
+            box-shadow:
                 0 8px 20px rgba(0, 0, 0, 0.4),
                 0 0 30px rgba(255, 158, 88, 0.8);
             transition: all 0.5s ease;
@@ -85,13 +85,13 @@
             opacity: 0;
             animation: fadeIn 1s forwards 1.5s;
         }
-        
+
         .blessing-bag i {
             font-size: 40px;
             color: #fff;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
         }
-        
+
         .blessing-bag::after {
             content: '点击开启祝福';
             position: absolute;
@@ -111,13 +111,13 @@
             width: 100%;
             height: 100%;
             display: none;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            background: linear-gradient(135deg, #1a3466 0%, #224387 50%, #1a3466 100%);
             background-image:
                 radial-gradient(circle at 15% 25%, rgba(255, 209, 102, 0.15) 0%, transparent 25%),
                 radial-gradient(circle at 85% 70%, rgba(255, 158, 88, 0.15) 0%, transparent 25%);
             overflow: hidden;
         }
-        
+
         canvas {
             display: block;
             position: absolute;
@@ -207,7 +207,7 @@
             position: absolute;
             font-size: clamp(1rem, 4vw, 1.4rem);
             opacity: 0;
-            animation: floatElement 6s ease-in-out forwards;
+            animation: floatElement 8s ease-in-out forwards;
             z-index: 2;
             text-shadow: 0 0 8px rgba(255, 209, 102, 0.8);
             user-select: none;
@@ -328,7 +328,7 @@
             opacity: 0;
             transition: all 0.8s ease;
         }
-        
+
         .memory-wall h3 {
             color: #ffd166;
             font-size: clamp(0.9rem, 3vw, 1rem);
@@ -337,7 +337,7 @@
             border-bottom: 1px solid rgba(255, 209, 102, 0.3);
             padding-bottom: 5px;
         }
-        
+
         .memory-item {
             color: rgba(255, 235, 205, 0.9);
             font-size: clamp(0.7rem, 2vw, 0.85rem);
@@ -346,7 +346,7 @@
             padding-left: 16px;
             position: relative;
         }
-        
+
         .memory-item::before {
             content: "❤️";
             position: absolute;
@@ -367,7 +367,7 @@
             opacity: 0;
             transition: opacity 1.5s ease;
         }
-        
+
         .father-child-animation .dad, .father-child-animation .child {
             position: absolute;
             width: clamp(40px, 15vw, 60px);
@@ -387,14 +387,14 @@
             opacity: 0;
             transition: all 1s ease;
         }
-        
+
         .envelope {
             position: absolute;
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #ffd166 0%, #ff9e58 100%);
             border-radius: 6px;
-            box-shadow: 
+            box-shadow:
                 0 8px 20px rgba(0, 0, 0, 0.3),
                 0 0 30px rgba(255, 158, 88, 0.5);
             cursor: pointer;
@@ -403,7 +403,7 @@
             transform-origin: center;
             z-index: 10;
         }
-        
+
         .envelope .letter {
             position: absolute;
             top: 6px;
@@ -419,12 +419,70 @@
             transform: translateY(100%);
             transition: transform 0.6s ease;
         }
-        
+
         .envelope .letter p {
             font-size: clamp(0.6rem, 2vw, 0.75rem);
             color: #333;
             line-height: 1.5;
             font-family: '楷体', serif;
+        }
+
+        /* 爱的箴言 */
+        .wisdom-wall {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            width: clamp(140px, 28vw, 160px);
+            z-index: 3;
+            background: rgba(30, 60, 114, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            box-shadow: 0 0 15px rgba(255, 158, 88, 0.2);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .wisdom-wall h3 {
+            color: #ffd166;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            margin-bottom: 8px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 209, 102, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .wisdom-item {
+            color: rgba(255, 235, 205, 0.9);
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            line-height: 1.5;
+            margin: 8px 0;
+            padding: 5px;
+            text-align: center;
+            font-style: italic;
+            border-radius: 5px;
+            background: rgba(255, 209, 102, 0.1);
+        }
+
+        /* 父子牵手动画 */
+        .hand-holding {
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(180px, 40vw, 220px);
+            height: clamp(100px, 25vw, 130px);
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            animation: holdingHands 4s ease-in-out infinite;
+        }
+
+        @keyframes holdingHands {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
         }
 
         /* 响应式调整 */
@@ -433,61 +491,61 @@
                 font-size: 1.8rem;
                 margin-bottom: 15px;
             }
-            
+
             .splash-screen p {
                 font-size: 1rem;
                 margin-bottom: 25px;
             }
-            
+
             .blessing-bag {
                 width: 90px;
                 height: 90px;
             }
-            
+
             .blessing-bag i {
                 font-size: 36px;
             }
-            
+
             .blessing-bag::after {
                 font-size: 0.9rem;
                 bottom: -35px;
             }
-            
-            .memory-wall {
+
+            .memory-wall, .wisdom-wall {
                 top: 55px;
                 width: 130px;
                 padding: 8px;
             }
-            
-            .memory-item {
+
+            .memory-item, .wisdom-item {
                 font-size: 0.7rem;
             }
-            
+
             .letter-container {
                 width: 90px;
                 height: 65px;
                 bottom: 70px;
             }
-            
-            .father-child-animation {
+
+            .father-child-animation, .hand-holding {
                 bottom: 22%;
             }
-            
+
             .music-toggle, .fireworks-toggle {
                 padding: 7px 10px;
                 font-size: 0.8rem;
             }
-            
+
             .footer {
                 font-size: 0.85rem;
                 padding: 10px 15px;
                 padding-bottom: calc(10px + env(safe-area-inset-bottom));
             }
-            
+
             .greeting-message {
                 top: 45%;
             }
-            
+
             .family-silhouette {
                 bottom: 25%;
                 width: 160px;
@@ -500,15 +558,15 @@
                 top: 45%;
                 transform: translate(-50%, -45%);
             }
-            
+
             .family-silhouette {
                 bottom: 28%;
             }
-            
-            .father-child-animation {
+
+            .father-child-animation, .hand-holding {
                 bottom: 20%;
             }
-            
+
             .letter-container {
                 bottom: 70px;
             }
@@ -520,36 +578,36 @@
                 height: 55px;
                 bottom: 60px;
             }
-            
-            .memory-wall {
+
+            .memory-wall, .wisdom-wall {
                 top: 50px;
                 width: 110px;
             }
-            
+
             .splash-screen h1 {
                 font-size: 1.6rem;
             }
         }
-        
+
         /* 新增动画 */
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         @keyframes fadeIn {
             to { opacity: 1; }
         }
-        
+
         @keyframes floatBag {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
-        
+
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 30px rgba(255, 158, 88, 0.8); }
             50% { box-shadow: 0 0 50px rgba(255, 209, 102, 1); }
         }
-        
+
         @keyframes pulseText {
             0%, 100% { opacity: 0.7; }
             50% { opacity: 1; }
@@ -559,13 +617,13 @@
 <body>
     <!-- 启动页面 -->
     <div class="splash-screen" id="splashScreen">
-        <h1>父亲节特别祝福</h1>
-        <p>一份特别的礼物送给最伟大的爸爸</p>
+        <h1>致最伟大的爸爸</h1>
+        <p>一份来自心底的祝福，献给我生命中的英雄</p>
         <div class="blessing-bag" id="blessingBag">
             <i class="fas fa-gift"></i>
         </div>
     </div>
-    
+
     <!-- 主页面内容 - 初始隐藏 -->
     <div class="main-content" id="mainContent">
         <!-- 音频标签 - 使用在线音乐 -->
@@ -589,29 +647,30 @@
 
         <div class="stars" id="stars"></div>
         <div class="mountains"></div>
-        
-        <!-- 父子互动动画 -->
-        <div class="father-child-animation" id="fatherChildAnimation">
-            <div class="dad">
-                <svg width="100%" height="100%" viewBox="0 0 80 120">
-                    <circle cx="40" cy="30" r="15" fill="#ffd166" />
-                    <rect x="25" y="45" width="30" height="50" fill="#ffd166" />
-                    <rect x="15" y="45" width="10" height="40" fill="#ffd166" />
-                    <rect x="55" y="45" width="10" height="40" fill="#ffd166" />
-                    <rect x="20" y="95" width="15" height="25" fill="#ffd166" />
-                    <rect x="45" y="95" width="15" height="25" fill="#ffd166" />
-                </svg>
-            </div>
-            <div class="child">
-                <svg width="100%" height="100%" viewBox="0 0 60 90">
-                    <circle cx="30" cy="25" r="12" fill="#ffd166" />
-                    <rect x="20" y="37" width="20" height="40" fill="#ffd166" />
-                    <rect x="10" y="37" width="8" height="30" fill="#ffd166" />
-                    <rect x="42" y="37" width="8" height="30" fill="#ffd166" />
-                    <rect x="15" y="77" width="10" height="13" fill="#ffd166" />
-                    <rect x="35" y="77" width="10" height="13" fill="#ffd166" />
-                </svg>
-            </div>
+
+        <!-- 父子牵手动画 -->
+        <div class="hand-holding" id="handHolding">
+            <svg width="100%" height="100%" viewBox="0 0 250 150">
+                <!-- 爸爸 -->
+                <circle cx="80" cy="50" r="15" fill="#ffd166" />
+                <rect x="65" y="65" width="30" height="50" fill="#ffd166" />
+                <rect x="55" y="65" width="10" height="40" fill="#ffd166" />
+                <rect x="95" y="65" width="10" height="40" fill="#ffd166" />
+
+                <!-- 孩子 -->
+                <circle cx="170" cy="60" r="12" fill="#ffd166" />
+                <rect x="160" y="72" width="20" height="40" fill="#ffd166" />
+                <rect x="150" y="72" width="8" height="30" fill="#ffd166" />
+                <rect x="182" y="72" width="8" height="30" fill="#ffd166" />
+
+                <!-- 牵手 -->
+                <path d="M105 95 Q120 85 135 90 Q150 95 155 95" stroke="#ffd166" stroke-width="4" fill="none" />
+                <circle cx="105" cy="95" r="4" fill="#ffd166" />
+                <circle cx="155" cy="95" r="4" fill="#ffd166" />
+
+                <!-- 心形 -->
+                <path d="M120 75 Q125 65 130 75 Q135 85 120 85 Q115 80 120 75" fill="#ff9e58" />
+            </svg>
         </div>
 
         <div class="family-silhouette" id="familySilhouette">
@@ -624,6 +683,8 @@
                 <circle cx="200" cy="80" r="8" fill="#ffd166" />
                 <path d="M80,120 Q100,100 120,120" stroke="#ffd166" stroke-width="2" fill="none" />
                 <path d="M140,120 Q160,100 180,120" stroke="#ffd166" stroke-width="2" fill="none" />
+                <!-- 添加家庭字样 -->
+                <text x="125" y="20" font-family="Arial" font-size="14" fill="#ffd166" text-anchor="middle">家</text>
             </svg>
         </div>
 
@@ -631,10 +692,20 @@
         <div class="memory-wall" id="memoryWall">
             <h3>我们的珍贵回忆</h3>
             <div class="memory-item">教我骑自行车</div>
-            <div class="memory-item">给我买第一本书</div>
-            <div class="memory-item">陪我看足球比赛</div>
             <div class="memory-item">深夜为我补习功课</div>
-            <div class="memory-item">教我做人要正直善良</div>
+            <div class="memory-item">陪我度过人生低谷</div>
+            <div class="memory-item">教会我勇敢和坚持</div>
+            <div class="memory-item">永远做我的避风港</div>
+            <div class="memory-item">默默付出从不求回报</div>
+        </div>
+
+        <!-- 爱的箴言 -->
+        <div class="wisdom-wall" id="wisdomWall">
+            <h3>爱的箴言</h3>
+            <div class="wisdom-item">父爱如山，厚重而深远</div>
+            <div class="wisdom-item">您是我生命中的灯塔</div>
+            <div class="wisdom-item">感谢您的守护与陪伴</div>
+            <div class="wisdom-item">您的肩膀是我的依靠</div>
         </div>
 
         <!-- 信封动画 -->
@@ -654,12 +725,16 @@
             <p>
                 父亲节快乐！<br>
                 您是我生命中最温暖的光，<br>
-                感谢您一直以来的守护与付出。<br>
-                愿时光温柔待您，健康快乐每一天！
+                是我成长路上最坚强的后盾。<br>
+                感谢您无私的爱与付出。
             </p>
             <p style="margin-top: 15px; font-size: clamp(0.9rem, 3vw, 1rem);">
                 您的肩膀是我看世界的瞭望台<br>
-                是您把我举过头顶看世界
+                是您把我举过头顶看世界<br>
+                让我拥有更广阔的视野
+            </p>
+            <p style="margin-top: 15px; color: #ffd166; font-weight: bold;">
+                爸爸，我永远爱您！❤️
             </p>
         </div>
 
@@ -671,7 +746,7 @@
         // 创建星空背景
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starsCount = 80; // 减少星星数量提高性能
+            const starsCount = 80;
 
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
@@ -710,18 +785,20 @@
                 'child': '👶',
                 'hug': '🫂',
                 'love': '💕',
-                'thanks': '🙏'
+                'thanks': '🙏',
+                'family': '👨‍👩‍👧'
             };
 
             element.innerHTML = elements[type] || elements['heart'];
 
             // 随机大小和动画持续时间
             const size = Math.random() * 18 + 12;
-            const duration = Math.random() * 4 + 5;
+            const duration = Math.random() * 4 + 8; // 延长漂浮时间
             const color = type === 'heart' ? '#ff4d6d' :
                          type === 'star' ? '#ffd166' :
                          type === 'smile' ? '#ffdd33' :
-                         type === 'sun' ? '#ff9e58' : '#66ccff';
+                         type === 'sun' ? '#ff9e58' :
+                         type === 'family' ? '#ff6b6b' : '#66ccff';
 
             element.style.color = color;
             element.style.fontSize = `${size}px`;
@@ -746,22 +823,24 @@
         const interactiveArea = document.getElementById('interactiveArea');
         const fireworksToggle = document.getElementById('fireworksToggle');
         const memoryWall = document.getElementById('memoryWall');
+        const wisdomWall = document.getElementById('wisdomWall');
         const letterContainer = document.getElementById('letterContainer');
-        const fatherChildAnimation = document.getElementById('fatherChildAnimation');
+        const handHolding = document.getElementById('handHolding');
         const audio = document.getElementById('backgroundMusic');
         const musicToggle = document.getElementById('musicToggle');
         const splashScreen = document.getElementById('splashScreen');
         const mainContent = document.getElementById('mainContent');
         const blessingBag = document.getElementById('blessingBag');
         const envelope = document.querySelector('.envelope');
-        
+
         // 存储所有消息元素
         const messages = [];
 
         // 开关相关变量
         let fireworksActive = true;
         let musicActive = true;
-        const MAX_FIREWORKS = 3; // 减少烟花数量提高性能
+        let soundPlayed = false; // 确保音效只播放一次
+        const MAX_FIREWORKS = 3;
         const CLICK_COOLDOWN = 800;
         let lastClickTime = 0;
 
@@ -770,7 +849,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        
+
         // 烟花粒子类
         class Particle {
             constructor(x, y, color, velocity, isSpark = false, isHeart = false) {
@@ -778,14 +857,14 @@
                 this.y = y;
                 this.color = color;
                 this.velocity = {
-                    x: (Math.random() - 0.5) * (isSpark ? 4 : 8),
-                    y: (Math.random() - 0.5) * (isSpark ? 4 : 8)
+                    x: (Math.random() - 0.5) * (isSpark ? 3 : 6), // 降低速度
+                    y: (Math.random() - 0.5) * (isSpark ? 3 : 6)  // 降低速度
                 };
                 this.radius = isSpark ? Math.random() * 1.5 : Math.random() * 2.5 + 1;
                 this.alpha = 1;
-                this.gravity = 0.04;
+                this.gravity = 0.03; // 降低重力
                 this.friction = isSpark ? 0.98 : 0.96;
-                this.life = isSpark ? 50 : 80; // 减少粒子寿命提高性能
+                this.life = isSpark ? 70 : 120; // 延长粒子寿命
                 this.initialLife = this.life;
                 this.isSpark = isSpark;
                 this.isHeart = isHeart;
@@ -807,16 +886,16 @@
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
                 ctx.beginPath();
-                
+
                 if (this.isHeart) {
                     // 绘制心形
                     const size = this.radius * 2;
                     const t = this.angle;
                     const x = this.x;
                     const y = this.y;
-                    
+
                     ctx.moveTo(x, y + size/4);
-                    for (let i = 0; i < 20; i++) { // 减少点数提高性能
+                    for (let i = 0; i < 20; i++) {
                         const t = i / 20 * Math.PI * 2;
                         const px = x + size/16 * (16 * Math.pow(Math.sin(t), 3));
                         const py = y - size/16 * (13 * Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t));
@@ -831,7 +910,7 @@
                     // 绘制圆形
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
                 }
-                
+
                 ctx.fillStyle = this.color;
                 ctx.fill();
                 ctx.restore();
@@ -851,10 +930,10 @@
                 this.color = `hsl(${Math.random() * 60 + 20}, 100%, 65%)`;
                 this.velocity = {
                     x: (Math.random() - 0.5) * 2.5,
-                    y: Math.random() * -7 - 8
+                    y: Math.random() * -5 - 6 // 降低上升速度
                 };
                 this.radius = Math.random() * 2.5 + 1.5;
-                this.gravity = 0.08;
+                this.gravity = 0.06; // 降低重力
                 this.exploded = false;
                 this.particles = [];
                 this.messageElement = null;
@@ -881,21 +960,21 @@
                     "我会永远爱您，爸爸"
                 ];
                 this.currentMessage = this.messages[Math.floor(Math.random() * this.messages.length)];
-                this.isHeartFirework = Math.random() > 0.8;
+                this.isHeartFirework = Math.random() > 0.6; // 增加心形烟花比例
             }
 
             explode() {
                 this.exploded = true;
 
-                // 创建烟花粒子（减少粒子数量）
+                // 创建烟花粒子
                 const particleCount = 100;
                 const sparkCount = 60;
-                
+
                 for (let i = 0; i < particleCount; i++) {
                     this.particles.push(new Particle(
-                        this.x, 
-                        this.y, 
-                        this.color, 
+                        this.x,
+                        this.y,
+                        this.color,
                         this.velocity,
                         false,
                         this.isHeartFirework
@@ -905,17 +984,17 @@
                 // 创建烟花火花
                 for (let i = 0; i < sparkCount; i++) {
                     this.particles.push(new Particle(
-                        this.x, 
-                        this.y, 
-                        this.color, 
-                        this.velocity, 
+                        this.x,
+                        this.y,
+                        this.color,
+                        this.velocity,
                         true
                     ));
                 }
 
                 // 随机创建一些漂浮元素
-                const elementTypes = ['heart', 'star', 'smile', 'father', 'child', 'hug', 'love', 'thanks'];
-                for (let i = 0; i < 6; i++) { // 减少漂浮元素数量
+                const elementTypes = ['heart', 'star', 'smile', 'father', 'child', 'hug', 'love', 'thanks', 'family'];
+                for (let i = 0; i < 6; i++) {
                     setTimeout(() => {
                         const type = elementTypes[Math.floor(Math.random() * elementTypes.length)];
                         createFloatingElement(
@@ -923,7 +1002,7 @@
                             this.y + (Math.random() - 0.5) * 80,
                             type
                         );
-                    }, i * 100);
+                    }, i * 150);
                 }
 
                 // 显示文字
@@ -951,7 +1030,7 @@
                     this.messageElement.style.opacity = '1';
                     this.messageElement.style.transform = 'translate(-50%, -50%) scale(1)';
 
-                    // 3秒后淡出
+                    // 5秒后淡出（延长显示时间）
                     setTimeout(() => {
                         this.messageElement.style.opacity = '0';
                         this.messageElement.style.transform = 'translate(-50%, -50%) scale(0.5)';
@@ -967,8 +1046,8 @@
                                     messages.splice(index, 1);
                                 }
                             }
-                        }, 500);
-                    }, 3000);
+                        }, 800); // 延长淡出时间
+                    }, 5000); // 延长显示时间
                 }, 10);
             }
 
@@ -1026,15 +1105,15 @@
         // 切换烟花状态的函数
         function toggleFireworks() {
             fireworksActive = !fireworksActive;
-            fireworksToggle.innerHTML = fireworksActive ? 
-                '<i class="fa fa-toggle-on"></i> 烟花开启' : 
+            fireworksToggle.innerHTML = fireworksActive ?
+                '<i class="fa fa-toggle-on"></i> 烟花开启' :
                 '<i class="fa fa-toggle-off"></i> 烟花关闭';
         }
 
         // 切换音乐状态的函数
         function toggleMusic() {
             musicActive = !musicActive;
-            
+
             if (musicActive) {
                 audio.play().catch(error => {
                     console.log('音乐播放失败:', error);
@@ -1059,21 +1138,23 @@
                 firework.draw();
             }
         }
-        
+
         // 初始化页面
         function initPage() {
             resizeCanvas();
             createStars();
             animate();
-            
+
             // 显示问候消息
             setTimeout(() => {
                 greetingMessage.style.opacity = '1';
                 familySilhouette.style.opacity = '1';
                 memoryWall.style.opacity = '1';
                 memoryWall.style.transform = 'translateY(0)';
+                wisdomWall.style.opacity = '1';
+                wisdomWall.style.transform = 'translateY(0)';
                 letterContainer.style.opacity = '1';
-                fatherChildAnimation.style.opacity = '1';
+                handHolding.style.opacity = '1';
             }, 500);
 
             // 3秒后开始烟花（仅在开启状态下）
@@ -1085,16 +1166,16 @@
                 }
 
                 // 初始烟花
-                for (let i = 0; i < 3; i++) { // 减少初始烟花数量
-                    setTimeout(createFireworkIfActive, i * 1200);
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(createFireworkIfActive, i * 2000); // 增加烟花间隔
                 }
 
                 // 随机添加新烟花（仅在开启状态下）
                 const intervalId = setInterval(() => {
-                    if (fireworksActive && Math.random() < 0.02 && fireworks.length < MAX_FIREWORKS) {
+                    if (fireworksActive && Math.random() < 0.01 && fireworks.length < MAX_FIREWORKS) { // 降低烟花频率
                         fireworks.push(new Firework());
                     }
-                }, 1500); // 减少烟花生成频率
+                }, 2500); // 增加间隔
 
                 // 清理定时器（防止内存泄漏）
                 fireworksToggle.addEventListener('click', () => {
@@ -1102,27 +1183,30 @@
                 });
             }, 3000);
         }
-        
+
         // 福袋点击事件 - 启动主页面
         blessingBag.addEventListener('click', () => {
-            // 播放开启音效
-            playOpenSound();
-            
+            // 确保音效只播放一次
+            if (!soundPlayed) {
+                playOpenSound();
+                soundPlayed = true;
+            }
+
             // 创建粒子效果
             createOpenParticles();
-            
+
             // 隐藏启动页面，显示主页面
             setTimeout(() => {
                 splashScreen.style.opacity = '0';
                 splashScreen.style.transform = 'scale(1.2)';
-                
+
                 setTimeout(() => {
                     splashScreen.style.display = 'none';
                     mainContent.style.display = 'block';
-                    
+
                     // 初始化主页面
                     initPage();
-                    
+
                     // 播放背景音乐
                     audio.play().catch(error => {
                         console.log('音乐播放失败:', error);
@@ -1132,40 +1216,41 @@
                 }, 1000);
             }, 800);
         });
-        
+
         // 创建开启粒子效果
         function createOpenParticles() {
             const bagRect = blessingBag.getBoundingClientRect();
             const centerX = bagRect.left + bagRect.width / 2;
             const centerY = bagRect.top + bagRect.height / 2;
-            
+
             // 创建多个粒子
-            for (let i = 0; i < 40; i++) { // 减少粒子数量
+            for (let i = 0; i < 40; i++) {
                 setTimeout(() => {
                     const particle = document.createElement('div');
                     particle.className = 'floating-element';
-                    
+
                     // 随机选择粒子类型
-                    const types = ['❤️', '⭐', '✨', '👨', '👶', '🎁', '💕', '🙏', '👍'];
+                    const types = ['❤️', '⭐', '✨', '👨', '👶', '🎁', '💕', '🙏', '👍', '👨‍👩‍👧'];
                     const randomType = types[Math.floor(Math.random() * types.length)];
                     particle.innerHTML = randomType;
-                    
+
                     // 随机大小和动画持续时间
                     const size = Math.random() * 18 + 12;
-                    const duration = Math.random() * 4 + 5;
+                    const duration = Math.random() * 4 + 8; // 延长漂浮时间
                     const color = randomType === '❤️' ? '#ff4d6d' :
                                  randomType === '⭐' ? '#ffd166' :
-                                 randomType === '✨' ? '#ffdd33' : 
-                                 randomType === '👨' ? '#66ccff' : '#ff9e58';
-                    
+                                 randomType === '✨' ? '#ffdd33' :
+                                 randomType === '👨' ? '#66ccff' :
+                                 randomType === '👨‍👩‍👧' ? '#ff6b6b' : '#ff9e58';
+
                     particle.style.color = color;
                     particle.style.fontSize = `${size}px`;
                     particle.style.animationDuration = `${duration}s`;
                     particle.style.left = `${centerX}px`;
                     particle.style.top = `${centerY}px`;
-                    
+
                     document.body.appendChild(particle);
-                    
+
                     // 动画结束后移除
                     setTimeout(() => {
                         particle.remove();
@@ -1173,27 +1258,27 @@
                 }, i * 50);
             }
         }
-        
+
         // 播放开启音效
         function playOpenSound() {
             // 创建音频上下文
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
+
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            
+
             // 设置音效
             oscillator.type = 'sine';
             oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
             oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
             oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
             oscillator.frequency.setValueAtTime(1046.5, audioContext.currentTime + 0.3);
-            
+
             gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.2);
-            
+
             oscillator.start();
             oscillator.stop(audioContext.currentTime + 1.2);
         }
@@ -1201,13 +1286,14 @@
         // 页面加载完成后逻辑
         window.addEventListener('load', () => {
             resizeCanvas();
-            
+
             // 确保所有动画元素初始状态正确
             greetingMessage.style.opacity = '0';
             familySilhouette.style.opacity = '0';
             memoryWall.style.opacity = '0';
+            wisdomWall.style.opacity = '0';
             letterContainer.style.opacity = '0';
-            fatherChildAnimation.style.opacity = '0';
+            handHolding.style.opacity = '0';
         });
 
         // 点击事件处理
@@ -1253,7 +1339,7 @@
         // 绑定开关点击事件
         fireworksToggle.addEventListener('click', toggleFireworks);
         musicToggle.addEventListener('click', toggleMusic);
-        
+
         // 窗口大小改变时调整画布
         window.addEventListener('resize', resizeCanvas);
     </script>
