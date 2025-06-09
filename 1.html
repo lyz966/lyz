@@ -230,9 +230,10 @@
             }
         }
 
+        /* 问候消息 */
         .greeting-message {
             position: absolute;
-            top: 50%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: clamp(280px, 90%, 500px);
@@ -311,10 +312,10 @@
             box-shadow: 0 0 8px rgba(255, 209, 102, 0.5);
         }
 
-        /* 回忆墙样式 */
+        /* 回忆墙样式 - 移到音乐开关下方 */
         .memory-wall {
             position: absolute;
-            top: 60px;
+            top: 70px;
             left: 10px;
             width: clamp(140px, 28vw, 160px);
             z-index: 3;
@@ -353,6 +354,217 @@
             left: 0;
             top: 0;
             font-size: 11px;
+        }
+
+        /* 爱的箴言 - 移到烟花开关下方 */
+        .wisdom-wall {
+            position: absolute;
+            top: 70px;
+            right: 10px;
+            width: clamp(140px, 28vw, 160px);
+            z-index: 3;
+            background: rgba(30, 60, 114, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            box-shadow: 0 0 15px rgba(255, 158, 88, 0.2);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .wisdom-wall h3 {
+            color: #ffd166;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            margin-bottom: 8px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 209, 102, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .wisdom-item {
+            color: rgba(255, 235, 205, 0.9);
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            line-height: 1.5;
+            margin: 8px 0;
+            padding: 5px;
+            text-align: center;
+            font-style: italic;
+            border-radius: 5px;
+            background: rgba(255, 209, 102, 0.1);
+        }
+
+        /* 父子牵手动画 */
+        .hand-holding {
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(180px, 40vw, 220px);
+            height: clamp(100px, 25vw, 130px);
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            animation: holdingHands 4s ease-in-out infinite;
+        }
+
+        @keyframes holdingHands {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* 成长时间轴 */
+        .timeline-container {
+            position: absolute;
+            bottom: 180px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .timeline {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px;
+            max-width: 95%;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .timeline::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
+
+        .timeline-item {
+            flex: 0 0 auto;
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 209, 102, 0.2);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border: 2px solid rgba(255, 209, 102, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: scale(1.1);
+            background: rgba(255, 209, 102, 0.3);
+            box-shadow: 0 0 15px rgba(255, 209, 102, 0.6);
+        }
+
+        .timeline-item i {
+            font-size: 24px;
+            color: #ffd166;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item span {
+            font-size: 11px;
+            color: rgba(255, 235, 205, 0.9);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* 祝福卡片 */
+        .blessing-cards {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            padding: 0 10px;
+        }
+
+        .blessing-card {
+            width: 100px;
+            height: 85px;
+            background: rgba(255, 209, 102, 0.15);
+            border-radius: 10px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blessing-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 209, 102, 0.25);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .blessing-card i {
+            font-size: 28px;
+            color: #ffd166;
+            margin-bottom: 6px;
+        }
+
+        .blessing-card p {
+            font-size: 13px;
+            color: rgba(255, 235, 205, 0.9);
+            line-height: 1.2;
+        }
+
+        /* 新增：左下角和右下角的祝福卡片 */
+        .corner-blessing {
+            position: absolute;
+            bottom: 60px;
+            width: clamp(140px, 28vw, 160px);
+            z-index: 3;
+            background: rgba(30, 60, 114, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            box-shadow: 0 0 15px rgba(255, 158, 88, 0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .corner-blessing.left {
+            left: 10px;
+        }
+
+        .corner-blessing.right {
+            right: 10px;
+        }
+
+        .corner-blessing h3 {
+            color: #ffd166;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            margin-bottom: 8px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 209, 102, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .corner-blessing p {
+            color: rgba(255, 235, 205, 0.9);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            line-height: 1.5;
+            margin: 8px 0;
+            text-align: center;
         }
 
         /* 父子互动动画 */
@@ -427,64 +639,6 @@
             font-family: '楷体', serif;
         }
 
-        /* 爱的箴言 */
-        .wisdom-wall {
-            position: absolute;
-            top: 60px;
-            right: 10px;
-            width: clamp(140px, 28vw, 160px);
-            z-index: 3;
-            background: rgba(30, 60, 114, 0.7);
-            backdrop-filter: blur(5px);
-            border-radius: 12px;
-            padding: 10px;
-            border: 1px solid rgba(255, 209, 102, 0.3);
-            box-shadow: 0 0 15px rgba(255, 158, 88, 0.2);
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: all 0.8s ease;
-        }
-
-        .wisdom-wall h3 {
-            color: #ffd166;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            margin-bottom: 8px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 209, 102, 0.3);
-            padding-bottom: 5px;
-        }
-
-        .wisdom-item {
-            color: rgba(255, 235, 205, 0.9);
-            font-size: clamp(0.7rem, 2vw, 0.85rem);
-            line-height: 1.5;
-            margin: 8px 0;
-            padding: 5px;
-            text-align: center;
-            font-style: italic;
-            border-radius: 5px;
-            background: rgba(255, 209, 102, 0.1);
-        }
-
-        /* 父子牵手动画 */
-        .hand-holding {
-            position: absolute;
-            bottom: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: clamp(180px, 40vw, 220px);
-            height: clamp(100px, 25vw, 130px);
-            z-index: 4;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            animation: holdingHands 4s ease-in-out infinite;
-        }
-
-        @keyframes holdingHands {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-
         /* 响应式调整 */
         @media (max-width: 480px) {
             .splash-screen h1 {
@@ -511,8 +665,8 @@
                 bottom: -35px;
             }
 
-            .memory-wall, .wisdom-wall {
-                top: 55px;
+            .memory-wall, .wisdom-wall, .corner-blessing {
+                bottom: 100px;
                 width: 130px;
                 padding: 8px;
             }
@@ -543,7 +697,7 @@
             }
 
             .greeting-message {
-                top: 45%;
+                top: 38%;
             }
 
             .family-silhouette {
@@ -551,12 +705,43 @@
                 width: 160px;
                 height: 100px;
             }
+
+            .timeline-container {
+                bottom: 160px;
+                height: 70px;
+            }
+
+            .timeline-item {
+                width: 60px;
+                height: 60px;
+            }
+
+            .blessing-cards {
+                top: 20px;
+                gap: 35px;
+            }
+
+            .blessing-card {
+                width: 90px;
+                height: 80px;
+            }
+
+            .blessing-card i {
+                font-size: 26px;
+            }
+
+            .blessing-card p {
+                font-size: 12px;
+            }
+
+            .corner-blessing {
+                bottom: 50px;
+            }
         }
 
         @media (max-height: 600px) {
             .greeting-message {
-                top: 45%;
-                transform: translate(-50%, -45%);
+                top: 35%;
             }
 
             .family-silhouette {
@@ -570,6 +755,14 @@
             .letter-container {
                 bottom: 70px;
             }
+
+            .blessing-cards {
+                top: 35px;
+            }
+
+            .corner-blessing {
+                bottom: 50px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -579,13 +772,57 @@
                 bottom: 60px;
             }
 
-            .memory-wall, .wisdom-wall {
-                top: 50px;
+            .memory-wall, .wisdom-wall, .corner-blessing {
+                bottom: 90px;
                 width: 110px;
             }
 
             .splash-screen h1 {
                 font-size: 1.6rem;
+            }
+
+            .timeline-container {
+                bottom: 140px;
+                height: 60px;
+            }
+
+            .timeline-item {
+                width: 55px;
+                height: 55px;
+            }
+
+            .timeline-item i {
+                font-size: 20px;
+            }
+
+            .timeline-item span {
+                font-size: 9px;
+            }
+
+            .blessing-cards {
+                top: 15px;
+                gap: 25px;
+            }
+
+            .blessing-card {
+                width: 80px;
+                height: 75px;
+            }
+
+            .blessing-card i {
+                font-size: 24px;
+            }
+
+            .blessing-card p {
+                font-size: 11px;
+            }
+
+            .corner-blessing {
+                bottom: 45px;
+            }
+
+            .greeting-message {
+                top: 32%;
             }
         }
 
@@ -688,7 +925,7 @@
             </svg>
         </div>
 
-        <!-- 回忆墙 -->
+        <!-- 回忆墙 - 左下角 -->
         <div class="memory-wall" id="memoryWall">
             <h3>我们的珍贵回忆</h3>
             <div class="memory-item">陪我买苹果</div>
@@ -699,13 +936,83 @@
             <div class="memory-item">默默付出从不求回报</div>
         </div>
 
-        <!-- 爱的箴言 -->
+        <!-- 爱的箴言 - 右下角 -->
         <div class="wisdom-wall" id="wisdomWall">
             <h3>爱的箴言</h3>
             <div class="wisdom-item">父爱如山，厚重而深远</div>
             <div class="wisdom-item">您是我生命中的灯塔</div>
             <div class="wisdom-item">感谢您的守护与陪伴</div>
             <div class="wisdom-item">您的肩膀是我的依靠</div>
+        </div>
+
+        <!-- 左下角祝福卡片 -->
+        <div class="corner-blessing left" id="leftBlessing">
+            <h3>给爸爸的祝福</h3>
+            <p>愿您身体健康，笑容常在</p>
+            <p>愿您每天都充满欢乐</p>
+            <p>愿您一生平安顺遂</p>
+        </div>
+
+        <!-- 右下角祝福卡片 -->
+        <div class="corner-blessing right" id="rightBlessing">
+            <h3>爸爸，我想对您说</h3>
+            <p>您是我心中永远的英雄</p>
+            <p>感谢您的无私奉献</p>
+            <p>我永远爱您，爸爸！</p>
+        </div>
+
+        <!-- 祝福卡片 -->
+        <div class="blessing-cards" id="blessingCards">
+            <div class="blessing-card" onclick="showBlessing('健康')">
+                <i class="fas fa-heartbeat"></i>
+                <p>愿您身体健康，笑容常在</p>
+            </div>
+            <div class="blessing-card" onclick="showBlessing('快乐')">
+                <i class="fas fa-laugh-beam"></i>
+                <p>愿您每天都充满欢乐</p>
+            </div>
+            <div class="blessing-card" onclick="showBlessing('平安')">
+                <i class="fas fa-shield-alt"></i>
+                <p>愿您一生平安顺遂</p>
+            </div>
+            <div class="blessing-card" onclick="showBlessing('幸福')">
+                <i class="fas fa-home"></i>
+                <p>愿我们家庭永远幸福</p>
+            </div>
+        </div>
+
+        <!-- 成长时间轴 -->
+        <div class="timeline-container" id="timelineContainer">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <i class="fas fa-baby"></i>
+                    <span>童年时光</span>
+                </div>
+                <div class="timeline-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>毕业典礼</span>
+                </div>
+                <div class="timeline-item">
+                    <i class="fas fa-hiking"></i>
+                    <span>旅行记忆</span>
+                </div>
+                <div class="timeline-item">
+                    <i class="fas fa-birthday-cake"></i>
+                    <span>生日惊喜</span>
+                </div>
+                <div class="timeline-item">
+                    <i class="fas fa-home"></i>
+                    <span>温馨家庭</span>
+                </div>
+                <div class="timeline-item">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>您的支持</span>
+                </div>
+                <div class="timeline-item">
+                    <i class="fas fa-heart"></i>
+                    <span>永远的爱</span>
+                </div>
+            </div>
         </div>
 
         <!-- 信封动画 -->
@@ -832,6 +1139,10 @@
         const mainContent = document.getElementById('mainContent');
         const blessingBag = document.getElementById('blessingBag');
         const envelope = document.querySelector('.envelope');
+        const timelineContainer = document.getElementById('timelineContainer');
+        const blessingCards = document.getElementById('blessingCards');
+        const leftBlessing = document.getElementById('leftBlessing');
+        const rightBlessing = document.getElementById('rightBlessing');
 
         // 存储所有消息元素
         const messages = [];
@@ -1046,7 +1357,7 @@
                                     messages.splice(index, 1);
                                 }
                             }
-                        }, 800); // 延长淡出时间
+                        }, 800);
                     }, 5000); // 延长显示时间
                 }, 10);
             }
@@ -1155,6 +1466,10 @@
                 wisdomWall.style.transform = 'translateY(0)';
                 letterContainer.style.opacity = '1';
                 handHolding.style.opacity = '1';
+                timelineContainer.style.opacity = '1';
+                blessingCards.style.opacity = '1';
+                leftBlessing.style.opacity = '1';
+                rightBlessing.style.opacity = '1';
             }, 500);
 
             // 3秒后开始烟花（仅在开启状态下）
@@ -1294,6 +1609,10 @@
             wisdomWall.style.opacity = '0';
             letterContainer.style.opacity = '0';
             handHolding.style.opacity = '0';
+            timelineContainer.style.opacity = '0';
+            blessingCards.style.opacity = '0';
+            leftBlessing.style.opacity = '0';
+            rightBlessing.style.opacity = '0';
         });
 
         // 点击事件处理
@@ -1342,6 +1661,57 @@
 
         // 窗口大小改变时调整画布
         window.addEventListener('resize', resizeCanvas);
+
+        // 祝福卡片点击事件
+        function showBlessing(type) {
+            let message = "";
+
+            switch(type) {
+                case '健康':
+                    message = "爸爸，愿您身体健康，充满活力！";
+                    break;
+                case '快乐':
+                    message = "爸爸，愿您每天都有好心情，笑容常在！";
+                    break;
+                case '平安':
+                    message = "爸爸，愿您一生平安顺遂，无灾无难！";
+                    break;
+                case '幸福':
+                    message = "爸爸，愿我们家庭永远幸福美满！";
+                    break;
+                default:
+                    message = "爸爸，我爱您！父亲节快乐！";
+            }
+
+            // 创建消息元素
+            const msgElement = document.createElement('div');
+            msgElement.className = 'message';
+            msgElement.textContent = message;
+            document.body.appendChild(msgElement);
+
+            // 定位到屏幕中央
+            msgElement.style.left = '50%';
+            msgElement.style.top = '50%';
+
+            // 触发动画
+            setTimeout(() => {
+                msgElement.style.opacity = '1';
+                msgElement.style.transform = 'translate(-50%, -50%) scale(1)';
+
+                // 3秒后淡出
+                setTimeout(() => {
+                    msgElement.style.opacity = '0';
+                    msgElement.style.transform = 'translate(-50%, -50%) scale(0.5)';
+
+                    // 动画结束后移除元素
+                    setTimeout(() => {
+                        if (document.body.contains(msgElement)) {
+                            document.body.removeChild(msgElement);
+                        }
+                    }, 800);
+                }, 3000);
+            }, 10);
+        }
     </script>
 </body>
 </html>
