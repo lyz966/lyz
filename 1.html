@@ -641,189 +641,270 @@
 
         /* 响应式调整 */
         @media (max-width: 480px) {
-            .splash-screen h1 {
-                font-size: 1.8rem;
-                margin-bottom: 15px;
+            /* 1. 只保留顶部、底部、信封为fixed，其余全部正常流 */
+            .controls-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
             }
-
-            .splash-screen p {
-                font-size: 1rem;
-                margin-bottom: 25px;
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
             }
-
-            .blessing-bag {
-                width: 90px;
+            .letter-container {
+                position: fixed;
+                bottom: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 99;
+            }
+            /* 2. 主内容区可滚动，顶部底部留出空间 */
+            .main-content {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100vw;
+                min-height: 100vh;
+                overflow-y: auto;
+                padding-top: 60px; /* 留出顶部按钮空间 */
+                padding-bottom: 90px; /* 留出底部footer和信封空间 */
+                box-sizing: border-box;
+            }
+            /* 3. 所有内容元素恢复为正常流布局 */
+            .greeting-message,
+            .memory-wall,
+            .wisdom-wall,
+            .blessing-cards,
+            .timeline-container,
+            .corner-blessing.left,
+            .corner-blessing.right,
+            .family-silhouette,
+            .hand-holding {
+                position: static !important;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+                z-index: auto !important;
+                margin: 0 auto 16px auto;
+                max-width: 95vw;
+            }
+            /* 4. 优化卡片、时间轴等尺寸和间距 */
+            .greeting-message {
+                width: 100%;
+                padding: 12px 8px;
+                border-radius: 12px;
+                margin-bottom: 18px;
+            }
+            .memory-wall, .wisdom-wall, .corner-blessing.left, .corner-blessing.right {
+                width: 95vw;
+                min-width: 0;
+                padding: 8px 6px;
+                border-radius: 10px;
+                margin-bottom: 12px;
+            }
+            .blessing-cards {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                margin-bottom: 12px;
+            }
+            .blessing-card {
+                width: 70px;
+                height: 60px;
+                padding: 4px;
+                border-radius: 8px;
+            }
+            .timeline-container {
+                width: 100%;
+                height: auto;
+                margin-bottom: 16px;
+            }
+            .timeline {
+                gap: 6px;
+                padding: 0 2px;
+            }
+            .timeline-item {
+                width: 38px;
+                height: 38px;
+            }
+            .family-silhouette, .hand-holding {
+                width: 110px;
+                height: 60px;
+                margin-bottom: 10px;
+            }
+            /* 5. 让主内容区背景不被fixed元素遮挡 */
+            .main-content:before {
+                content: "";
+                display: block;
+                height: 60px;
+            }
+            .main-content:after {
+                content: "";
+                display: block;
                 height: 90px;
             }
-
-            .blessing-bag i {
-                font-size: 36px;
+            /* 6. 优化消息提示层级 */
+            .message {
+                z-index: 200;
             }
-
-            .blessing-bag::after {
-                font-size: 0.9rem;
-                bottom: -35px;
+            .wisdom-wall {
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                box-sizing: border-box !important;
+                display: block !important;
+                overflow: visible !important;
+                padding: 14px 8px 10px 8px !important;
+                margin-bottom: 16px;
+                background: rgba(20, 35, 70, 0.92) !important;
+                border-radius: 12px;
+                box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
             }
+            .wisdom-wall h3 {
+                font-size: 1rem;
+                margin-bottom: 10px;
+                padding-bottom: 6px;
+                border-bottom: 1px solid rgba(255, 209, 102, 0.18);
+                color: #ffd166;
+            }
+            .wisdom-item {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                display: block !important;
+                font-size: 1rem;
+                line-height: 1.7;
+                margin: 0 0 10px 0;
+                padding: 10px 8px;
+                background: rgba(255, 235, 205, 0.13);
+                color: #fffbe6;
+                word-break: break-all;
+                overflow-wrap: break-word;
+                white-space: normal !important;
+                text-align: center;
+                border-radius: 8px;
+                float: none !important;
+                box-shadow: 0 1px 4px 0 rgba(0,0,0,0.04);
+                border: 1px solid rgba(255, 209, 102, 0.10);
+                position: relative;
+            }
+            .wisdom-item:not(:last-child)::after {
+                content: '';
+                display: block;
+                height: 1px;
+                background: linear-gradient(to right, transparent, #ffd16655, transparent);
+                margin: 10px 0 0 0;
+                width: 80%;
+                position: absolute;
+                left: 10%;
+                bottom: -6px;
+            }
+        }
 
+        /* 超小屏幕优化 */
+        @media (max-width: 360px) {
             .memory-wall, .wisdom-wall, .corner-blessing {
-                bottom: 100px;
-                width: 130px;
-                padding: 8px;
-            }
-
-            .memory-item, .wisdom-item {
-                font-size: 0.7rem;
-            }
-
-            .letter-container {
-                width: 90px;
-                height: 65px;
-                bottom: 70px;
-            }
-
-            .father-child-animation, .hand-holding {
-                bottom: 22%;
-            }
-
-            .music-toggle, .fireworks-toggle {
-                padding: 7px 10px;
-                font-size: 0.8rem;
-            }
-
-            .footer {
-                font-size: 0.85rem;
-                padding: 10px 15px;
-                padding-bottom: calc(10px + env(safe-area-inset-bottom));
-            }
-
-            .greeting-message {
-                top: 38%;
-            }
-
-            .family-silhouette {
-                bottom: 25%;
-                width: 160px;
-                height: 100px;
-            }
-
-            .timeline-container {
-                bottom: 160px;
-                height: 70px;
-            }
-
-            .timeline-item {
-                width: 60px;
-                height: 60px;
+                width: 100px;
             }
 
             .blessing-cards {
-                top: 20px;
-                gap: 35px;
+                gap: 12px;
             }
 
             .blessing-card {
-                width: 90px;
-                height: 80px;
+                width: 65px;
+                height: 60px;
             }
 
-            .blessing-card i {
-                font-size: 26px;
+            .timeline-container {
+                bottom: 130px;
             }
 
-            .blessing-card p {
-                font-size: 12px;
-            }
-
-            .corner-blessing {
-                bottom: 50px;
-            }
-        }
-
-        @media (max-height: 600px) {
-            .greeting-message {
-                top: 35%;
-            }
-
-            .family-silhouette {
-                bottom: 28%;
-            }
-
-            .father-child-animation, .hand-holding {
-                bottom: 20%;
+            .timeline-item {
+                width: 40px;
+                height: 40px;
             }
 
             .letter-container {
-                bottom: 70px;
-            }
-
-            .blessing-cards {
-                top: 35px;
-            }
-
-            .corner-blessing {
-                bottom: 50px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .letter-container {
-                width: 80px;
-                height: 55px;
+                width: 65px;
+                height: 50px;
                 bottom: 60px;
             }
 
-            .memory-wall, .wisdom-wall, .corner-blessing {
-                bottom: 90px;
-                width: 110px;
-            }
-
-            .splash-screen h1 {
-                font-size: 1.6rem;
-            }
-
-            .timeline-container {
-                bottom: 140px;
-                height: 60px;
-            }
-
-            .timeline-item {
-                width: 55px;
-                height: 55px;
-            }
-
-            .timeline-item i {
-                font-size: 20px;
-            }
-
-            .timeline-item span {
-                font-size: 9px;
-            }
-
-            .blessing-cards {
-                top: 15px;
-                gap: 25px;
-            }
-
-            .blessing-card {
-                width: 80px;
-                height: 75px;
-            }
-
-            .blessing-card i {
-                font-size: 24px;
-            }
-
-            .blessing-card p {
-                font-size: 11px;
-            }
-
-            .corner-blessing {
-                bottom: 45px;
-            }
-
             .greeting-message {
-                top: 32%;
+                top: 40%;
             }
+
+            .family-silhouette {
+                bottom: 22%;
+            }
+
+            .hand-holding {
+                bottom: 20%;
+            }
+        }
+
+        /* 安全区域适配优化 */
+        @supports (padding: max(0px)) {
+            .controls-container {
+                padding-top: max(8px, env(safe-area-inset-top));
+                padding-left: max(8px, env(safe-area-inset-left));
+                padding-right: max(8px, env(safe-area-inset-right));
+            }
+
+            .footer {
+                padding-bottom: max(6px, env(safe-area-inset-bottom));
+                padding-left: max(10px, env(safe-area-inset-left));
+                padding-right: max(10px, env(safe-area-inset-right));
+            }
+        }
+
+        /* 添加滚动优化 */
+        .timeline {
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 0 5px;
+        }
+
+        .timeline::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 优化动画元素层级 */
+        .stars {
+            z-index: 1;
+        }
+
+        .mountains {
+            z-index: 2;
+        }
+
+        canvas {
+            z-index: 3;
+        }
+
+        /* 确保所有固定定位元素不会重叠 */
+        .controls-container,
+        .greeting-message,
+        .memory-wall,
+        .wisdom-wall,
+        .corner-blessing,
+        .blessing-cards,
+        .timeline-container,
+        .letter-container,
+        .family-silhouette,
+        .hand-holding,
+        .footer {
+            pointer-events: auto;
         }
 
         /* 新增动画 */
