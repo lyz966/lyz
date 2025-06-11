@@ -66,6 +66,18 @@
             line-height: 1.6;
         }
 
+        .splash-screen .additional-text {
+            color: rgba(255, 235, 205, 0.8);
+            font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+            text-align: center;
+            max-width: 90%;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 1.5s;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
         .blessing-bag {
             width: 100px;
             height: 100px;
@@ -297,6 +309,8 @@
             justify-content: space-between;
             padding: 0 15px;
             z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
         .music-toggle, .fireworks-toggle {
@@ -600,10 +614,10 @@
         /* 信封动画 */
         .letter-container {
             position: absolute;
-            bottom: 80px;
+            bottom: 45px;
             left: 50%;
             transform: translateX(-50%);
-            width: clamp(100px, 20vw, 140px);
+            width: clamp(90px, 20vw, 120px);
             height: clamp(70px, 15vw, 90px);
             z-index: 9;
             opacity: 0;
@@ -643,10 +657,14 @@
         }
 
         .envelope .letter p {
-            font-size: clamp(0.6rem, 2vw, 0.75rem);
+            font-size: clamp(0.65rem, 2vw, 0.75rem);
             color: #333;
             line-height: 1.5;
             font-family: '楷体', serif;
+            margin: 0;
+            padding: 0;
+            white-space: pre-line;
+            text-align: center;
         }
 
         /* 响应式调整 */
@@ -779,13 +797,21 @@
             /* 9. 信封容器优化 */
             .letter-container {
                 position: fixed;
-                bottom: 70px;
+                bottom: 45px;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 80px;
-                height: 60px;
+                width: 100px;
+                height: 75px;
                 z-index: 99;
-                aspect-ratio: 4 / 3;
+            }
+
+            .envelope .letter {
+                padding: 8px;
+            }
+
+            .envelope .letter p {
+                font-size: 0.7rem;
+                line-height: 1.6;
             }
 
             /* 10. 家庭剪影和牵手动画优化 */
@@ -835,9 +861,18 @@
             }
 
             .letter-container {
-                width: 70px;
-                height: 50px;
-                bottom: 60px;
+                width: 90px;
+                height: 65px;
+                bottom: 45px;
+            }
+
+            .envelope .letter {
+                padding: 6px;
+            }
+
+            .envelope .letter p {
+                font-size: 0.65rem;
+                line-height: 1.5;
             }
 
             .family-silhouette, .hand-holding {
@@ -861,7 +896,7 @@
             }
 
             .letter-container {
-                bottom: max(60px, calc(60px + env(safe-area-inset-bottom)));
+                bottom: max(45px, calc(45px + env(safe-area-inset-bottom)));
             }
         }
 
@@ -936,6 +971,11 @@
     <div class="splash-screen" id="splashScreen">
         <h1>致最伟大的爸爸</h1>
         <p>一份来自心底的祝福，献给我生命中的英雄</p>
+        <div class="additional-text">
+            您是我生命中最温暖的光<br>
+            是我成长路上最坚强的后盾<br>
+            感谢您无私的爱与付出
+        </div>
         <div class="blessing-bag" id="blessingBag">
             <i class="fas fa-gift"></i>
         </div>
@@ -1608,6 +1648,10 @@
                 setTimeout(() => {
                     splashScreen.style.display = 'none';
                     mainContent.style.display = 'block';
+
+                    // 显示控制按钮
+                    const controlsContainer = document.querySelector('.controls-container');
+                    controlsContainer.style.opacity = '1';
 
                     // 初始化主页面
                     initPage();
